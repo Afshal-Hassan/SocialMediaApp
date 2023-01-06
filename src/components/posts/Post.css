@@ -1,0 +1,9 @@
+.posts-layout{
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    padding-top: 1.25em;
+}
+.text{
+    margin-bottom: 8px !important;
+}

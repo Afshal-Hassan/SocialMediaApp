@@ -1,0 +1,18 @@
+.nav-layout{
+   
+    width: 20vw;
+    height: fit-content ;
+    background-color: #FFFFFF;
+    padding-top: 0.5rem;
+
+}
+.nav-menu{
+    font-weight: 550;
+    font-family: Lato,Poppins,Muli,sans-serif;
+}
+
+@media (max-width:420px) {
+    .hide-buttons{
+        display: none;
+    }
+}

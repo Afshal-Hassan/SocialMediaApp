@@ -1,0 +1,33 @@
+.header-layout{
+    height: 9.5vh;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2em;
+    border-bottom: 1px solid #F2F3F5;
+    
+}
+#icons-layout{
+    width: 7em !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-right: 10em;
+}
+
+
+@media (max-width:420px) {
+    .header-layout{
+        justify-content: safe;
+        padding-left: 1.5em;
+    }
+    #icons-layout{
+        margin-right: 20px;
+    }
+
+    .search-bar{
+        display: none !important;
+    }
+}
