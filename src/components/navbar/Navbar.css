@@ -1,6 +1,6 @@
 .nav-layout{
    
-    width: 20vw;
+    width: 21.5%;
     height: fit-content ;
     background-color: #FFFFFF;
     padding-top: 0.5rem;
@@ -13,6 +13,9 @@
 
 @media (max-width:420px) {
     .hide-buttons{
+        display: none;
+    }
+    .nav-layout{
         display: none;
     }
 }

@@ -19,11 +19,12 @@ function Posts() {
         <Layout className='posts-layout'>
             <Card
             style={{
-                width:"70%",
+             
                 border:"1px solid #ececec", 
                 boxShadow:"3px 3px 5px 1.5px lightgray",
                 borderRadius:8
             }}
+            className="what-on-mind-card"
             >
                 <p style={{ color: "gray" }}><input style={{border:"none",margin:0,outline:"none"}} placeholder='Whats on your mind' id='whats-on-mind' onClick={handleWhatsOnYourMind}/></p>
                 <Divider plain={true} />
@@ -39,7 +40,7 @@ function Posts() {
                         cursor:"pointer"
                     }}>
                     
-                        <PersonalVideoIcon style={{width:20,color:"red"}}/><Text>Video</Text>
+                        <PersonalVideoIcon style={{width:20,color:"red"}}/><Text style={{fontWeight:600}}>Video</Text>
               
                 </div>
                 <div
@@ -53,7 +54,7 @@ function Posts() {
                         cursor:"pointer"
                     }}>
                     
-                        <InsertPhotoIcon style={{width:20,color:"green"}}/><Text>Photo</Text>
+                        <InsertPhotoIcon style={{width:20,color:"green"}}/><Text style={{fontWeight:600}}>Photo</Text>
               
                 </div>
                 <div
@@ -67,7 +68,7 @@ function Posts() {
                         cursor:"pointer"
                     }}>
                     
-                        <EmojiEmotionsIcon style={{width:20,color:"gold"}}/><Text>Feeling Activity</Text>
+                        <EmojiEmotionsIcon style={{width:20,color:"gold"}}/><Text style={{fontWeight:600}}>Feeling Activity</Text>
               
                 </div>
                 </div>

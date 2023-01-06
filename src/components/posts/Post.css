@@ -1,9 +1,23 @@
 .posts-layout{
-    width: 80vw;
+    width: 55%;
     display: flex;
     align-items: center;
     padding-top: 1.25em;
 }
 .text{
     margin-bottom: 8px !important;
+}
+.what-on-mind-card{
+    width: 70%;
+}
+
+@media (max-width:420px) {
+
+ .what-on-mind-card{
+    width: 90%;
+ }
+ .posts-layout{
+    width: 100% !important;
+ }
+
 }

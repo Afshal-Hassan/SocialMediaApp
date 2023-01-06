@@ -4,12 +4,12 @@ import Meta from 'antd/es/card/Meta'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
+import "./PostFeed.css"
 function PostsFeed() {
   return (
     <Card 
     style={{
-        width:"50%",
+      
         border:"1px solid #ececec", 
         boxShadow:"3px 3px 5px 1.5px lightgray",
         borderRadius:8,

@@ -1,0 +1,11 @@
+.status-layout{
+    width: 20%;
+    border: 2px solid red;
+}
+
+@media (max-width:420px) {
+    .status-layout{
+        display: none;
+    }
+
+}

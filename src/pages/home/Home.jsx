@@ -4,6 +4,7 @@ import Header from '../../components/header/Header'
 import Posts from '../../components/posts/Posts'
 import { Layout } from 'antd'
 import "./Home.css";
+import Status from '../../components/status/Status'
 
 function Home() {
     
@@ -14,6 +15,7 @@ function Home() {
         <Layout id='home-pg-layout'>
         <Navbar/> 
         <Posts/>
+        <Status/>
         </Layout>   
     </>
   )

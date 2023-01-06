@@ -1,0 +1,10 @@
+.post-feed-card{
+    width: 60%;
+}
+
+@media (max-width:420px) {
+
+    .post-feed-card{
+        width: 83%;
+    }
+}
