@@ -1,11 +1,13 @@
 import { Card, Divider , Typography } from 'antd'
 import Layout from 'antd/es/layout/layout'
-import React from 'react'
+import React, { useEffect } from 'react'
 import PersonalVideoIcon from '@mui/icons-material/PersonalVideo';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import "./Post.css";
 import PostsFeed from './PostsFeed';
+import usePostOfUserWithFriends from '../../services/usePostsOfUserWithFriends';
+
 
 
 const { Text } =Typography;
@@ -14,6 +16,17 @@ function Posts() {
   const handleWhatsOnYourMind = () =>{
           console.log('Yes');
     }
+
+    const [ posts , fetchPostsOfUserWithFriends ] = usePostOfUserWithFriends();
+    const email = "afshal@gmail.com";
+  
+    useEffect( () => {
+  
+      fetchPostsOfUserWithFriends(email);
+  
+    },[]);
+    
+    console.log(posts);
 
     return (
         <Layout className='posts-layout'>
@@ -74,7 +87,12 @@ function Posts() {
                 </div>
 
             </Card>
-            <PostsFeed/>
+            {posts.map((post,index) => {
+                return(
+                    <PostsFeed image={post.postImage} description={post.postDescription} creator={post.userEmail} createdDate={post.createdAt} key={index}/>
+                );
+            })}
+           
         </Layout>
     )
 }

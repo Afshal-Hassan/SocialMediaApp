@@ -12,7 +12,7 @@ function Status() {
 
     useEffect(() => {
         fetchFriendsOfUser(user);  
-    },[])
+    },[]);
     
     return (
         <Layout className='status-layout'>
