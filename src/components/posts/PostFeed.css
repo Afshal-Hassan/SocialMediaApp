@@ -1,7 +1,9 @@
 .post-feed-card{
     width: 60%;
 }
-
+.video{
+    object-fit: fill !important;
+}
 @media (max-width:420px) {
 
     .post-feed-card{

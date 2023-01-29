@@ -7,6 +7,12 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import "./Post.css";
 import PostsFeed from './PostsFeed';
 import usePostOfUserWithFriends from '../../services/usePostsOfUserWithFriends';
+import axios from 'axios';
+import { usePost } from '../../hooks/context/PostContext';
+import { savePostApiUrl } from '../../apis/apiUrls';
+import Stories from '../stories/Stories';
+
+
 
 
 
@@ -17,7 +23,11 @@ function Posts() {
           console.log('Yes');
     }
 
-    const [ posts , fetchPostsOfUserWithFriends ] = usePostOfUserWithFriends();
+    const [ fetchPostsOfUserWithFriends ] = usePostOfUserWithFriends();
+    const { value } = usePost();
+    const [ posts, setPosts] = value;
+
+
     const email = "afshal@gmail.com";
   
     useEffect( () => {
@@ -25,8 +35,40 @@ function Posts() {
       fetchPostsOfUserWithFriends(email);
   
     },[]);
-    
+
     console.log(posts);
+  
+
+    const onChooseFile = (event) => {
+        const form = new FormData();
+        const date = new Date();
+        const currentDate = `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }T${ date.getHours() }:${ date.getMinutes() }:${  date.getSeconds() }`;
+        const file = event.target.files[0];
+    
+        const fileReader= new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            const blob = fileReader.result.split(",")[1];
+            setPosts([{ postDescription:null, postImage:blob , createdAt:currentDate, likes:0, hearts:0, userEmail:email}, ...posts ]);
+        }
+
+        
+        form.append("post",`{
+            "postDescription":null,
+            "postImage":null,
+            "createdAt":"${currentDate}",
+            "likes":50,
+            "hearts":60,
+            "userEmail":"${email}"
+        }`);
+        form.append("image",file);
+        
+        axios.post(savePostApiUrl(),form)
+        .then( response =>  console.log(response) )
+        .catch( error => console.log(error) );   
+    }
+    
+    
 
     return (
         <Layout className='posts-layout'>
@@ -56,7 +98,7 @@ function Posts() {
                         <PersonalVideoIcon style={{width:20,color:"red"}}/><Text style={{fontWeight:600}}>Video</Text>
               
                 </div>
-                <div
+                <label htmlFor='image-upload'><div
                     style=
                     {{
                         display: "flex",
@@ -68,8 +110,10 @@ function Posts() {
                     }}>
                     
                         <InsertPhotoIcon style={{width:20,color:"green"}}/><Text style={{fontWeight:600}}>Photo</Text>
+                        
               
-                </div>
+                </div></label>
+                <input type="file" id='image-upload' onChange={onChooseFile}/>
                 <div
                     style=
                     {{
@@ -87,9 +131,10 @@ function Posts() {
                 </div>
 
             </Card>
+            <Stories/>
             {posts.map((post,index) => {
                 return(
-                    <PostsFeed image={post.postImage} description={post.postDescription} creator={post.userEmail} createdDate={post.createdAt} key={index}/>
+                    <PostsFeed image={post.postImage} description={post.postDescription} creator={post.userEmail} createdDate={post.createdAt} likes={post.likes} hearts={post.hearts} video={post.video} key={index}/>
                 );
             })}
            

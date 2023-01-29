@@ -1,0 +1,28 @@
+.video-component{
+    outline: none !important;
+    border: none !important;
+}
+
+.video{
+    object-fit: fill !important;
+}
+.video-title{
+    transform: translateX(-50%) translateY(-50%) !important;
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif !important;
+}
+.video-modal{
+    padding: 0 !important;
+}
+.modal-box{
+    width: 600px;
+    padding: 60px;
+
+}
+.ant-modal-content{
+    background-color: transparent !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+

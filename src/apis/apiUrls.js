@@ -3,5 +3,9 @@ export const friendListApi = (user) => {
 }
 
 export const postsOfUserWithFriendsApiUrl = (user) => {
-    return `http://socialmediabackend-env.eba-m8ebkyni.ap-northeast-1.elasticbeanstalk.com/post/get/${user}`;
+    return `http://localhost:5000/post/get/${user}`;
 } 
+
+export const savePostApiUrl = () => {
+    return "http://socialmediabackend-env.eba-m8ebkyni.ap-northeast-1.elasticbeanstalk.com/post/save";
+}
