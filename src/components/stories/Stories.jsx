@@ -1,7 +1,6 @@
 import { Box } from '@mui/system';
 import Modal from 'antd/es/modal/Modal';
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
 import "./Stories.css";
 
@@ -27,9 +26,9 @@ function Stories() {
     const playVideo = () => {
         videoRef.current.play();
     }
-    const pauseVideo = () => {
-        videoRef.current.pause();
-    }
+    // const pauseVideo = () => {
+    //     videoRef.current.pause();
+    // }
     const openStoriesModal = (story) => {
         setModalInfo(story);
         setModalOpen(true);
@@ -60,7 +59,6 @@ function Stories() {
         }, 300);
 
     }
-
 
     return (
         <div
