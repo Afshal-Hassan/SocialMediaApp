@@ -25,4 +25,6 @@
     align-items: center !important;
     justify-content: center !important;
 }
-
+.stories-carousel{
+    width: 100%;
+}
