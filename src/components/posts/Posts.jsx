@@ -1,6 +1,6 @@
-import { Card, Divider, Typography } from 'antd'
+import { Card, Divider, notification, Progress, Typography } from 'antd'
 import Layout from 'antd/es/layout/layout'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PersonalVideoIcon from '@mui/icons-material/PersonalVideo';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
@@ -19,6 +19,17 @@ import { useLoader } from '../../hooks/context/LoadingContext';
 const { Text } = Typography;
 
 function Posts() {
+
+    const [ api, contextHolder] = notification.useNotification();
+
+    const openNotificationWithIcon = (type,description) => {
+        api[type] ({
+            message:"Incorrect File",
+            description:
+            description
+        });
+    };
+
     const handleWhatsOnYourMind = () => {
         console.log('Yes');
     }
@@ -28,6 +39,7 @@ function Posts() {
     const [posts, setPosts] = value;
     const [loading, setLoading] = useLoader();
 
+    const [ progress, setProgress ] = useState(0);
 
     const email = "afshal@gmail.com";
 
@@ -37,39 +49,114 @@ function Posts() {
 
     }, []);
 
+    useEffect(() => {
+
+    },[progress]);
+
     console.log(posts);
 
+    const onChangeProgress = (value) => {
+        setProgress(value);
+    }
 
-    const onChooseFile = (event) => {
+
+
+    const onChooseVideo = (event) => {
+
         const form = new FormData();
         const date = new Date();
         const currentDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
         const file = event.target.files[0];
+        const fileType = file.name.split(".")[1];
 
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = () => {
-            const blob = fileReader.result.split(",")[1];
-            setPosts([{ postDescription: null, postImage: blob, createdAt: currentDate, likes: 0, hearts: 0, userEmail: email }, ...posts]);
+        if(fileType ==="mp4")
+        {
+            const videoUrl = URL.createObjectURL(file);
+            setPosts([{ postDescription: null, video: videoUrl , createdAt: currentDate, likes: 0, hearts: 0, userEmail: email }, ...posts]); 
+
+            form.append("post", `{
+                "postDescription":null,
+                "postImage":null,
+                "createdAt":"${currentDate}",
+                "likes":50,
+                "hearts":60,
+                "userEmail":"${email}"
+            }`);
+            form.append("image", file);
+
+            axios.post(savePostApiUrl(), form)
+                .then(response => console.log(response))
+                .catch(error => console.log(error));
+
+            document.getElementById("video-upload").value = null;
+
+        }
+        else
+        {
+            document.getElementById("video-upload").value = null;
+            const description = "File must be of type mp4";
+            openNotificationWithIcon('error',description);
         }
 
-
-        form.append("post", `{
-            "postDescription":null,
-            "postImage":null,
-            "createdAt":"${currentDate}",
-            "likes":50,
-            "hearts":60,
-            "userEmail":"${email}"
-        }`);
-        form.append("image", file);
-
-        axios.post(savePostApiUrl(), form)
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
     }
 
 
+
+
+    const onChooseFile = (event) => {
+        
+        const form = new FormData();
+        const date = new Date();
+        const currentDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        const file = event.target.files[0];
+        const fileType = file.name.split(".")[1];
+
+        if(fileType ==="png" || fileType ==="jpeg" || fileType === "jpg")
+        {
+            onChangeProgress(30);
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+            const blob = fileReader.result.split(",")[1];
+            setPosts([{ postDescription: null, postImage: blob, createdAt: currentDate, likes: 0, hearts: 0, userEmail: email }, ...posts]);
+            }
+
+            onChangeProgress(50);
+
+            form.append("post", `{
+                "postDescription":null,
+                "postImage":null,
+                "createdAt":"${currentDate}",
+                "likes":50,
+                "hearts":60,
+                "userEmail":"${email}"
+            }`);
+
+            onChangeProgress(70);
+            form.append("image", file);
+
+            // axios.post(savePostApiUrl(), form)
+            //     .then(response => console.log(response))
+            //     .catch(error => console.log(error));
+
+            onChangeProgress(100);
+
+            document.getElementById("image-upload").value = null;  
+
+            setTimeout(() => {
+                onChangeProgress(0);  
+            },2000);
+        }
+        else
+        {
+            document.getElementById("image-upload").value = null;
+            const description = "File must be of type PNG or JPEG";
+            openNotificationWithIcon('error',description);
+        }
+        
+    }
+
+    
 
     return (
         <Layout className='posts-layout'>
@@ -84,7 +171,21 @@ function Posts() {
             >
                 <p style={{ color: "gray" }}><input style={{ border: "none", margin: 0, outline: "none" }} placeholder='Whats on your mind' id='whats-on-mind' onClick={handleWhatsOnYourMind} /></p>
                 <Divider plain={true} />
+                
+                {
+
+                progress > 0 ? 
+                (
+                <>
+                <span style={{ color:"gray" , fontSize:12.5, fontWeight:550}}>File Uploaded</span>
+                <Progress percent={progress} size="small" className='upload-progress'/>
+                </>
+                ) 
+                : null
+
+                }
                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+                    <label htmlFor='video-upload'>
                     <div
                         style=
                         {{
@@ -98,8 +199,10 @@ function Posts() {
 
                         <PersonalVideoIcon style={{ width: 20, color: "red" }} /><Text style={{ fontWeight: 600 }}>Video</Text>
 
-                    </div>
-                    <label htmlFor='image-upload'><div
+                    </div></label>
+                    <input type="file" id='video-upload' onChange={onChooseVideo} />
+                    <label htmlFor='image-upload'>
+                        <div
                         style=
                         {{
                             display: "flex",
@@ -114,7 +217,7 @@ function Posts() {
 
 
                     </div></label>
-                    <input type="file" id='image-upload' onChange={onChooseFile} />
+                    <input type="file" id='image-upload' onChangeCapture={onChooseFile} />
                     <div
                         style=
                         {{
@@ -183,7 +286,7 @@ function Posts() {
                     </>
                 )
             }
-
+            {contextHolder}
         </Layout>
     )
 }

@@ -19,7 +19,7 @@ function PostsFeed(props) {
   postCreator = postCreator[0].charAt(0).toUpperCase() + postCreator[0].slice(1);
   const hour = Math.floor(getHoursDiffBetweenDates(new Date(props.createdDate.replace("T", " ")), new Date("2023-01-27 10:25:00")));
 
-  
+
 
   return (
     <Card
@@ -42,10 +42,32 @@ function PostsFeed(props) {
         />
         <MoreVertIcon />
       </div>
+
       <div
-        style={{ height: "fit-content", border: "1px solid white", justifySelf: "center", marginTop: "1em", maxHeight: "25em" }}>
-        {props.image != null ? <img src={`data:image/png;base64,${props.image}`} alt="image" style={{ maxWidth: "100%" }} /> : (props.video != null ? <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} className="video" src={`http://localhost:5000/videos/${props.video}`} autoPlay muted loop />
-          : <h2 style={{ textAlign: "center" }}>{props.description}</h2>)}
+        style={{ height: "fit-content", border: "1px solid white", justifySelf: "center", marginTop: "1em", maxHeight: "410px" }}>
+        {
+        
+        props.image != null 
+          ?
+          (
+              !props.image.includes("http") ? <img src={`data:image/png;base64,${props.image}`} alt="image" style={{ width: "100%"}} />
+              :
+              <img src={`http://localhost:5000/${props.image}`} alt="image" style={{ width: "100%" }} />
+          )
+          :
+          (
+            props.video != null 
+            ?
+              (
+                props.video.includes("3000") ?
+                  <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} className="video" src={`${props.video}`} autoPlay muted loop />
+                  :
+                  <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} className="video" src={`http://localhost:5000/${props.video}`} autoPlay muted loop />
+              )
+            : <h2 style={{ textAlign: "center" }}>{props.description}</h2>
+          )}
+
+
       </div>
       <div style={{ marginTop: 10, marginBottom: 10, display: "flex", alignItems: "center" }}>
         {

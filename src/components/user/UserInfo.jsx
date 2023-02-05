@@ -5,13 +5,13 @@ import "./UserInfo.css"
 
 const { Title } = Typography;
 const { Text } = Typography;
-function UserInfo() {
+function UserInfo(props) {
   return (
     <Card className='user-info-card'>
 
         <Meta
         title="User Information"
-        description="afshalhassan@gmail.com"
+        description={props.email}
         />
         <Title level={5}>City: <Text>Karachi</Text></Title>
         <Title level={5}>Relationship: <Text>Single</Text></Title>

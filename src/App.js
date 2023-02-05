@@ -9,7 +9,7 @@ function App() {
     <div >
       <LoaderProvider>
         <PostProvider>
-          <Profile/>
+          <Home/>
         </PostProvider>
       </LoaderProvider>
     </div>

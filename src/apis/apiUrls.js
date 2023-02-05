@@ -7,5 +7,9 @@ export const postsOfUserWithFriendsApiUrl = (user) => {
 } 
 
 export const savePostApiUrl = () => {
-    return "http://socialmediabackend-env.eba-m8ebkyni.ap-northeast-1.elasticbeanstalk.com/post/save";
+    return "http://localhost:5000/post/save";
+}
+
+export const fetchUserDetailsApiUrl = (clickedByUser,clickedOnUser) => {
+    return `http://localhost:5000/user/get/${clickedByUser}/${clickedOnUser}`;
 }
