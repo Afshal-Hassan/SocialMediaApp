@@ -12,6 +12,8 @@ import { usePost } from '../../hooks/context/PostContext';
 import { savePostApiUrl } from '../../apis/apiUrls';
 import Stories from '../stories/Stories';
 import { useLoader } from '../../hooks/context/LoadingContext';
+import YourFriends from './YourFriends';
+import PeopleYouMayKnow from '../people-you-may-know/PeopleYouMayKnow';
 
 
 
@@ -236,6 +238,8 @@ function Posts() {
 
             </Card>
             <Stories />
+            <PeopleYouMayKnow/>
+            <YourFriends/>
             {posts.length > 0 ?
                 posts.map((post, index) => {
                     return (

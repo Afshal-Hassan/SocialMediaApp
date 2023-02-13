@@ -10,21 +10,21 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 const stories = [
     {
         id: 1,
-        url: "http://localhost:5000/videos/c7b01bab-3eb3-42aa-ba87-79ae4997d2de.mp4"
+        url: "http://3.109.123.148/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
     {
         id: 2,
-        url: "http://localhost:5000/videos/d2506aa3-148a-4c42-8dfa-fbf11b6e8893.mp4"
+        url: "http://3.109.123.148/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
     {
         id: 3,
-        url: "http://localhost:5000/videos/d2506aa3-148a-4c42-8dfa-fbf11b6e8893.mp4"
+        url: "http://3.109.123.148/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
     {
         id: 4,
-        url: "http://localhost:5000/videos/c7b01bab-3eb3-42aa-ba87-79ae4997d2de.mp4"
+        url: "http://3.109.123.148/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
-    
+
 ]
 
 
@@ -49,7 +49,7 @@ function Stories() {
     }
 
     const ModalContent = (props) => {
-        
+
         if (modalInfo != null) {
             return (
                 <Modal open={isModalOpen} footer={null} closable={false} className="ant-modal-content">
@@ -64,7 +64,7 @@ function Stories() {
 
     }
 
-    const items =  stories.map(story => {
+    const items = stories.map(story => {
         return (
             <div
                 style={{
@@ -81,7 +81,17 @@ function Stories() {
                 key={story.id}
             >
                 <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} className="video" src={story.url} autoPlay muted loop />
-                <span style={{ position: "absolute", left: "37%", top: "87%", color: "whitesmoke", fontWeight: 600, fontSize: 13.5 }} className="video-title">Audi Lifestyle</span>
+                <span style={{
+                    position: "absolute",
+                    left: "37%",
+                    top: "87%",
+                    color: "whitesmoke",
+                    fontWeight: 600,
+                    fontSize: 13.5
+                }}
+                    className="video-title">
+                    Audi Lifestyle
+                </span>
             </div>
         )
     })
@@ -109,22 +119,22 @@ function Stories() {
         <div
             style={{ display: "flex", flexDirection: "row", alignItems: "center", width: "100%", marginTop: 20 }}
         >
-            <AliceCarousel 
-            infinite
-            mouseTracking
-            autoPlay
-            disableButtonsControls
-             disableDotsControls
-             autoPlayInterval={1000}
-             animationDuration={1500}
-             items={items}
-             responsive={responsive}
+            <AliceCarousel
+                infinite
+                mouseTracking
+                autoPlay
+                disableButtonsControls
+                disableDotsControls
+                autoPlayInterval={1000}
+                animationDuration={1500}
+                items={items}
+                responsive={responsive}
             />
             {
-               
+
             }
-          
-    
+
+
             {isModalOpen && <ModalContent story={modalInfo} />}
         </div>
     )

@@ -13,3 +13,15 @@ export const savePostApiUrl = () => {
 export const fetchUserDetailsApiUrl = (clickedByUser,clickedOnUser) => {
     return `http://localhost:5000/user/get/${clickedByUser}/${clickedOnUser}`;
 }
+
+export const fetchRecommendedFriendSuggestionUrl = (user) => {
+    return `http://65.1.112.53/${user}`;
+} 
+
+export const fetchRecommendedFriendsProfileData = () => {
+    return `http://localhost:5000/user/list/get`
+}
+
+export const fetchNotificationsApiUrl = (userEmail) => {
+    return `http://localhost:5000/notifications/get/${userEmail}`;
+}
