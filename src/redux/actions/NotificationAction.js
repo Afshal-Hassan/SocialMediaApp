@@ -5,8 +5,29 @@ export const incrementNotifications = () => {
 }
 
 export const sendNotificationMessage = (data) => {
+
     return {
         type: "NOTIFICATION_MESSAGE",
-        data: data
+        data: {
+            notificationID: data.notificationID,
+            notificationSenderName: data.notificationSenderName,
+            notification: data.notification,
+            notificationSenderProfilePic: data.notificationSenderProfilePic,
+            notificationStatus: data.notificationStatus
+        }
+    }
+}
+
+export const updateNotificationMessage = (data) => {
+    
+    return {
+        type: "UPDATE_NOTIFICATION_MESSAGE",
+        data: {
+            notificationID: data.notificationID,
+            notificationSenderName: data.notificationSenderName,
+            notification: data.notification,
+            notificationSenderProfilePic: data.notificationSenderProfilePic,
+            notificationStatus: data.notificationStatus
+        }
     }
 }

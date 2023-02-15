@@ -11,13 +11,12 @@ const changeTheNotification = (state = initialState , action) => {
 
 
 
-const notificationMessageState={
-    notificationMessage: ""
-}
+const notificationMessageState=[]
 
 export const changeTheNotificationMessage = (state = notificationMessageState , action ) => {
     switch ( action.type ) {
-        case "NOTIFICATION_MESSAGE" : return {...notificationMessageState,notificationMessage: action.data};
+        case "NOTIFICATION_MESSAGE" : return [...state,action.data]
+        case "UPDATE_NOTIFICATION_MESSAGE" : return state.map((state,index) => state.notificationID === action.data.notificationID ? {...state,notificationStatus:"Accepted" } : state)
         default : return state; 
     }
 }

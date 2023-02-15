@@ -14,9 +14,27 @@
     font-family: inherit !important;
 }
 
+
+
 #notifications{
     font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif !important;
 }
+
+.notification-content{
+    background-color: "white" !important;
+   
+}
+
+.notification-message{
+    font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif !important;
+
+}
+
+.notification-content:hover{
+    background: whitesmoke !important;
+}
+
+
 
 #icons-layout{
     width: 7em !important;
@@ -25,9 +43,14 @@
     justify-content: space-evenly !important;
     margin-right: 10em !important;
 }
+
+
+
 #notification-icon{
     color: black !important;
 }
+
+
 
 #notification-icon:hover{
     color: #008ad3 !important;

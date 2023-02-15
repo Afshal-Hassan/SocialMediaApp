@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { incrementNotifications, sendNotificationMessage } from '../../redux/actions/NotificationAction';
 
+
 var stompClient = null;
 
 function PeopleYouMayKnow() {
@@ -24,8 +25,11 @@ function PeopleYouMayKnow() {
         
         if(stompClient){
             let notification = {
-                friendRequestSender:"afshal",
-                message:"Afshal send a friend request",
+                id: Math.floor(Math.random()),
+                notificationSenderName:"afshal",
+                notification:"Afshal send a friend request",
+                notificationSenderProfilePic: "Profile Pic" ,
+                notificationStatus:"Pending",
                 friendRequestReceiver:receiver,
                 roomId:"1"
             }
@@ -34,15 +38,17 @@ function PeopleYouMayKnow() {
         }
     }
 
+
     useEffect(() => {
         friendRequestSend();
     },[])
+
 
     const friendRequestSend = () => {
         let Sock = new SockJS("http://localhost:5000/ws");
         stompClient = over(Sock);
         stompClient.connect({},onConnected,onError);
-        
+      
     }
 
     const onError = (err) => {
@@ -50,13 +56,16 @@ function PeopleYouMayKnow() {
     }
 
     const onConnected = () => {
-        stompClient.subscribe("/user/" + "1" + "/private",onPrivateMessageReceived);
+        stompClient.subscribe("/user/" + "1" + "/send/private",onPrivateMessageReceived);
     }
 
     const onPrivateMessageReceived = (payload) => {
         let response = JSON.parse(payload.body);
-        dispatch(incrementNotifications());
-        dispatch(sendNotificationMessage(response.message));
+        if(username.toUpperCase() == receiver.toUpperCase()){
+            dispatch(incrementNotifications());
+            dispatch(sendNotificationMessage(response));
+        }
+        
     }
 
 

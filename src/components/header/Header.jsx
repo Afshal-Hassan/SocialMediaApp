@@ -1,36 +1,98 @@
-import React, { useEffect, useState } from 'react'
-import { Layout, Typography, Input, notification } from 'antd'
+import React, { useEffect } from 'react'
+import { Layout, Typography, Input, Button } from 'antd'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import useNotifications from '../../helper/useNotifications';
 import ProfilePic from "../user/Profile.jpeg"
 import "./Header.css";
 import { useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useFetchNotification from '../../services/useFetchNotification';
+import { updateNotificationMessage } from '../../redux/actions/NotificationAction';
+import { over } from "stompjs";
+import SockJS from 'sockjs-client';
+import { incrementNotifications, sendNotificationMessage } from '../../redux/actions/NotificationAction';
 
 
+
+var stompClient = null;
 
 const { Title } = Typography;
 const { Text } = Typography;
 const { Search } = Input;
 function Header() {
 
-    const notificationsCount = useSelector(state => state.changeTheNotification);
-    const notificationMessageState = useSelector(state => state.changeTheNotificationMessage);
+    const receiver = 'afshal'
+    const username = localStorage.getItem("username")
+    const dispatch = useDispatch();
 
+    const notificationsCount = useSelector(state => state.changeTheNotification);
+    const notifications = useSelector(state => state.changeTheNotificationMessage);
+   
+    
+    
 
     const [handleNotifications] = useNotifications();
-    const [notificationsOfUser] = useFetchNotification();
     const display = useRef(null);
 
+    const acceptFriendRequest = (notification) => {
+        onAcceptFriendRequest();
+        dispatch(updateNotificationMessage(notification));
+    }
 
+
+    const onAcceptFriendRequest = () => {
+        
+        if(stompClient){
+            let notification = {
+                id: Math.floor(Math.random()),
+                notificationSenderName:"arham",
+                notification:"Arham accepted your friend request",
+                notificationSenderProfilePic: "Profile Pic" ,
+                notificationStatus:"Accepted",
+                friendRequestReceiver:receiver,
+                roomId:"1"
+            } 
+            stompClient.send('/app/receive-notification',{},JSON.stringify(notification));
+        }
+    }
+
+    const connectionWithSocket = () => {
+        let Sock = new SockJS("http://localhost:5000/ws");
+        stompClient = over(Sock);
+        stompClient.connect({},onAcceptedRequestConnected,onError);
+    
+    }
+
+
+    const onError = (err) => {
+        console.log(err);
+    }
+
+    const onAcceptedRequestConnected = () => {
+        stompClient.subscribe("/user/" + "1" + "/receive/private",onFriendRequestAcceptanceNotificationReceived);
+    }
+
+    const onFriendRequestAcceptanceNotificationReceived = (payload) => {
+        
+        let response = JSON.parse(payload.body);
+        if(username == receiver){
+            dispatch(incrementNotifications());
+            dispatch(sendNotificationMessage(response));
+        }
+        
+    }
+
+
+    useFetchNotification();
 
     useEffect(() => {
+        connectionWithSocket();
         display.current.style.display = "none";
+        console.log(username);
+       
     }, []);
 
-    console.log(notificationsOfUser);
 
     return (
         <Layout className='header-layout'>
@@ -106,8 +168,8 @@ function Header() {
                     <div
                         ref={display}
                         style={{
-                            width: 400,
-                            height: 500,
+                            width: 390,
+                            height: 550,
                             position: "absolute",
                             border: "0.5px solid #ececec",
                             boxShadow: "3px 3px 5px 1.5px lightgray",
@@ -124,29 +186,36 @@ function Header() {
                         <h2
                             style=
                             {{
-                                fontSize: 25,
+                                fontSize: 29,
                                 marginLeft: 20,
+                                marginBottom:26,
                                 fontWeight: "bolder"
                             }}
                             className="notifications-title"
                         >Notifications</h2>
+
                         {
-                            notificationsOfUser.length != 0 ?
-                                notificationsOfUser.map(notificationOfUser => {
+                            notifications != 0 ?
+                                notifications.map((notification,index) => {
 
                                     return (
+
                                         <div
                                             style=
                                             {{
                                                 display: "flex",
-                                                paddingLeft: 24,
-                                                marginTop: 17,
+                                                paddingLeft: 20,
+                                                marginTop: 10,
                                                 alignItems: "center",
-                                                backgroundColor: "whitesmoke",
                                                 width: "100%",
+                                                cursor: "pointer",
+                                                position: "relative",
                                                 height: 70
                                             }}
+                                            key={index}
+                                            className="notification-content"
                                         >
+
                                             <img src={ProfilePic} alt=""
                                                 style=
                                                 {{
@@ -156,13 +225,45 @@ function Header() {
                                                     marginRight: 10
                                                 }}
                                             />
+
                                             <Text
                                                 style=
                                                 {{
-                                                    fontSize: 15,
-                                                    fontWeight: 550
+                                                    fontSize: 14.5,
+                                                    fontWeight: 550,
+                                                    color: "#65676b"
                                                 }}
-                                            >{notificationOfUser.notification}</Text>
+                                                className="notification-message"
+                                            >{notification.notification}
+                                            </Text>
+                                            {
+                                                notification.notificationStatus == "Pending" ?
+
+                                                    <>
+                                                        <Button type='primary'
+                                                            style=
+                                                            {{
+                                                                marginRight: 8,
+                                                            }}
+                                                            onClick={() => acceptFriendRequest(notification)}
+                                                        >Accept</Button>
+                                                        <Button color='white' 
+                                                        style=
+                                                        {{
+                                                            marginRight:3.25
+                                                        }}
+                                                        >Decline</Button>
+                                                    </>
+                                                    :
+                                                    <Button type='primary' disabled
+                                                    style=
+                                                    {{
+                                                        marginLeft:25
+                                                    }}
+                                                    >
+                                                        {notification.notificationStatus}
+                                                    </Button>
+                                            }
                                         </div>
                                     )
                                 }
