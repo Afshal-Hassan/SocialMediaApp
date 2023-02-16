@@ -12,7 +12,8 @@ import { updateNotificationMessage } from '../../redux/actions/NotificationActio
 import { over } from "stompjs";
 import SockJS from 'sockjs-client';
 import { incrementNotifications, sendNotificationMessage } from '../../redux/actions/NotificationAction';
-
+import axios from 'axios';
+import { privateRoomKeyApiUrl, updateNotificationsApiUrl } from '../../apis/apiUrls';
 
 
 var stompClient = null;
@@ -22,37 +23,58 @@ const { Text } = Typography;
 const { Search } = Input;
 function Header() {
 
-    const receiver = 'afshal'
-    const username = localStorage.getItem("username")
+    // const receiver = 'afshal'
+    const email = localStorage.getItem("email")
+    const username = localStorage.getItem("username");
+
     const dispatch = useDispatch();
 
     const notificationsCount = useSelector(state => state.changeTheNotification);
     const notifications = useSelector(state => state.changeTheNotificationMessage);
    
-    
+    console.log(notifications);
     
 
     const [handleNotifications] = useNotifications();
     const display = useRef(null);
 
     const acceptFriendRequest = (notification) => {
-        onAcceptFriendRequest();
+        onAcceptFriendRequest(notification);
         dispatch(updateNotificationMessage(notification));
     }
 
 
-    const onAcceptFriendRequest = () => {
+    const onAcceptFriendRequest = async(notificationDetails) => {
+
+        const { data } = await axios.get(privateRoomKeyApiUrl(email,notificationDetails.notificationSenderEmail));
+
+        const roomId = data.data[0].room_id;
         
         if(stompClient){
             let notification = {
                 id: Math.floor(Math.random()),
-                notificationSenderName:"arham",
-                notification:"Arham accepted your friend request",
+
+                notificationSenderName:`${username.charAt(0).toUpperCase() + username.slice(1)}`,
+
+                notification:`${username.charAt(0).toUpperCase() + username.slice(1)} accepted friend request`,
+
                 notificationSenderProfilePic: "Profile Pic" ,
+
                 notificationStatus:"Accepted",
-                friendRequestReceiver:receiver,
-                roomId:"1"
+
+                friendRequestReceiver:notificationDetails.notificationSenderEmail,
+                
+                roomId: roomId.toString()
             } 
+
+            axios.put(updateNotificationsApiUrl(notificationDetails.notificationSenderEmail,email),notification)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
             stompClient.send('/app/receive-notification',{},JSON.stringify(notification));
         }
     }
@@ -76,7 +98,7 @@ function Header() {
     const onFriendRequestAcceptanceNotificationReceived = (payload) => {
         
         let response = JSON.parse(payload.body);
-        if(username == receiver){
+        if(email == response.friendRequestReceiver){
             dispatch(incrementNotifications());
             dispatch(sendNotificationMessage(response));
         }
@@ -89,7 +111,6 @@ function Header() {
     useEffect(() => {
         connectionWithSocket();
         display.current.style.display = "none";
-        console.log(username);
        
     }, []);
 

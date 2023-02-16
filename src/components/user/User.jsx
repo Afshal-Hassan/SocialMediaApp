@@ -16,8 +16,8 @@ const { Text } = Typography;
 
 function User() {
     
-    const clickedByUser = "afshal@gmail.com";
-    const clickOnUser = "afshal@gmail.com";
+    const clickedByUser = localStorage.getItem("email");
+    const clickOnUser = "afshalhassan7@gmail.com";
 
     
     const [ fetchPostsOfUserWithFriends ] = usePostOfUserWithFriends();

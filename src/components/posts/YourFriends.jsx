@@ -1,8 +1,11 @@
 import { Button, Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect } from 'react'
+import { useState } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import { Link } from 'react-router-dom';
+import { friendsDataApiUrl } from '../../apis/apiUrls';
 import ProfilePic from "../user/Profile.jpeg";
 import "./YourFriends.css"
 
@@ -27,6 +30,19 @@ const item = [
 
 function YourFriends() {
 
+  const email = localStorage.getItem("email");
+
+  const [yourFriends, setYourFriends] = useState([]);
+
+  useEffect(() => {
+    fetchFriendsData();
+  }, [])
+
+  const fetchFriendsData = async () => {
+    const { data } = await axios.get(friendsDataApiUrl(email));
+    setYourFriends(data);
+  }
+
   const responsive = {
     0: {
       items: 2,
@@ -39,112 +55,60 @@ function YourFriends() {
     }
   };
 
-  const items = item.map(item => {
+  const items = yourFriends.map(yourFriend => {
     return (
-      <div>
-        <h3>{item.id}</h3>
-      </div>
+      <Card
+        cover=
+        {
+          <img
+            src={`http://3.109.123.148/${yourFriend.profilePic}`} alt=""
+            style={{
+              borderRadius: 10,
+              objectFit: "cover",
+              boxSizing: "border-box"
+            }}
+            className="your-friends-img"
+          />
+        }
+        className="your-friends-card"
+      >
+        <div
+          style={{ fontWeight: 550, fontSize: 16 }}
+        >
+          {yourFriend.name.charAt(0).toUpperCase() + yourFriend.name.slice(1)}
+        </div>
+        <div
+          style={{ color: "gray", marginTop: 5, fontSize: 12.5 }}
+        >{yourFriend.friendsCount + " Friends"}
+        </div>
+        <Link to={`/profile/${yourFriend.email}`}><Button type='primary' className='see-profile-button'>See Profile</Button></Link>
+      </Card>
+
     );
   });
 
-  const email = "afshal@gmail.com"
+
 
 
 
   return (
-    <div style={{ marginTop: 85, borderRadius:"9px",paddingTop:15,paddingBottom:15}} className="your-friends-comp">
-      {/* <AliceCarousel
-     infinite
-     mouseTracking
-     disableButtonsControls
-     disableDotsControls
-    responsive={responsive}
-    items={items}
-    /> */}
-      <Card
-        cover=
-        {
-          <img
-            src={ProfilePic} alt=""
-            style={{
-              borderRadius: 10,
-              objectFit: "cover",
-              boxSizing:"border-box"
-            }}
-            className="your-friends-img"
-          />
-        }
-        className="your-friends-card"
-      >
-        <div
-          style={{ fontWeight: 550, fontSize: 16 }}
-        >
-          {"Afshal Hassan"}
-        </div>
-        <div
-          style={{ color: "gray", marginTop: 5, fontSize: 12.5 }}
-        >{3 + " Friends"}
-        </div>
-        <Button type='primary' className='see-profile-button'>See Profile</Button>
-      </Card>
-
-      <Card
-        cover=
-        {
-          <img
-            src={ProfilePic} alt=""
-            style={{
-              width: 200,
-              height: 200,
-              borderRadius: 10,
-              objectFit: "cover",    
-              boxSizing:"border-box"       
-            }}
-            className="your-friends-img"
-          />
-        }
-        className="your-friends-card"
-      >
-        <div
-          style={{ fontWeight: 550, fontSize: 16 }}
-        >
-          {"Afshal Hassan"}
-        </div>
-        <div
-          style={{ color: "gray", marginTop: 5, fontSize: 12.5 }}
-        >{3 + " Friends"}
-        </div>
-       <Link to={`/profile/${email}`}><Button type='primary' className='see-profile-button'>See Profile</Button></Link>
-      </Card>
-      <Card
-        cover=
-        {
-          <img
-            src={ProfilePic} alt=""
-            style={{
-              width: 200,
-              height: 200,
-              borderRadius: 10,
-              objectFit: "cover",
-              boxSizing:"border-box"
-            }}
-            className="your-friends-img"
-          />
-        }
-        className="your-friends-card"
-      >
-        <div
-          style={{ fontWeight: 550, fontSize: 16 }}
-        >
-          {"Afshal Hassan"}
-        </div>
-        <div
-          style={{ color: "gray", marginTop: 5, fontSize: 12.5 }}
-        >{3 + " Friends"}
-        </div>
-        <Button type='primary' className='see-profile-button'>See Profile</Button>
-      </Card>
-    </div>
+    <>
+    <div style={{ marginTop: 85, width: "95%" }}>
+      <h3 style={{ fontWeight: 600, fontSize: 17.5 }} className="people-know-heading">
+        Your Friends
+      </h3>
+      <div style={{ borderRadius: "9px", paddingTop: 15, paddingBottom: 15 }} className="your-friends-comp">
+        <AliceCarousel
+          infinite
+          mouseTracking
+          disableButtonsControls
+          disableDotsControls
+          responsive={responsive}
+          items={items}
+        />
+      </div>
+      </div>
+    </>
   )
 }
 

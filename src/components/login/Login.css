@@ -1,0 +1,10 @@
+.login-layout{
+    height: 100vh !important;
+    display: flex !important;
+    flex-direction: row;
+}
+
+
+.login-heading{
+    font-family: Poppins,sans-serif !important;
+}

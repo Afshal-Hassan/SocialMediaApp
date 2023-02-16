@@ -14,7 +14,11 @@ const usePostOfUserWithFriends = () => {
         setLoading(true);
         const { data } = await axios.get(postsOfUserWithFriendsApiUrl(user));
         setPosts(data);
-        setLoading(false);
+        if(data.length > 0){
+
+          setLoading(false);
+        }
+        
       }, [posts]);
 
   return [fetchPostsOfUserWithFriends];

@@ -13,7 +13,8 @@ export const sendNotificationMessage = (data) => {
             notificationSenderName: data.notificationSenderName,
             notification: data.notification,
             notificationSenderProfilePic: data.notificationSenderProfilePic,
-            notificationStatus: data.notificationStatus
+            notificationStatus: data.notificationStatus,
+            notificationSenderEmail:data.notificationSenderEmail
         }
     }
 }
@@ -27,7 +28,8 @@ export const updateNotificationMessage = (data) => {
             notificationSenderName: data.notificationSenderName,
             notification: data.notification,
             notificationSenderProfilePic: data.notificationSenderProfilePic,
-            notificationStatus: data.notificationStatus
+            notificationStatus: data.notificationStatus,
+            notificationSenderEmail:data.notificationSenderEmail
         }
     }
 }

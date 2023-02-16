@@ -9,6 +9,8 @@ const useRecommendation = () => {
     const [suggestedFriends, setSuggestedFriends] = useSuggestedFriends();
     const user="afshal";
 
+    const email = localStorage.getItem("email");
+
     useEffect(() => {
         fetchRecommendedFriends(user);
     },[])
@@ -16,7 +18,7 @@ const useRecommendation = () => {
     const fetchRecommendedFriends = useCallback(async(user) => {
 
         const { data } = await axios.get(fetchRecommendedFriendSuggestionUrl(user));
-        axios.post( fetchRecommendedFriendsProfileData() , data )
+        axios.post( fetchRecommendedFriendsProfileData(email) , data )
         .then( res => {
 
             setSuggestedFriends(res.data);
@@ -27,7 +29,7 @@ const useRecommendation = () => {
         })
 
     },[suggestedFriends])
-    return [suggestedFriends];
+    return [suggestedFriends,setSuggestedFriends];
 
 }
 

@@ -12,14 +12,14 @@ const useFetchNotification = () => {
     
     const dispatch = useDispatch();
     const notifications = useSelector(state => state.changeTheNotificationMessage);
-
-    const userEmail = "arham@gmail.com"
+    //
+    const email = localStorage.getItem("email")
 
     useEffect(() => {
 
         // persistedStore.purge()
         // if(notifications.length == 0){
-            fetchNotificationsOfUser(userEmail);
+            fetchNotificationsOfUser(email);
         // }
         
 

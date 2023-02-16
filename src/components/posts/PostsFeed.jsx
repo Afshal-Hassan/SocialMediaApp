@@ -18,8 +18,7 @@ function PostsFeed(props) {
   var postCreator = props.creator.split("@");
   postCreator = postCreator[0].charAt(0).toUpperCase() + postCreator[0].slice(1);
   const hour = Math.floor(getHoursDiffBetweenDates(new Date(props.createdDate.replace("T", " ")), new Date("2023-01-27 10:25:00")));
-
-
+  
 
   return (
     <Card

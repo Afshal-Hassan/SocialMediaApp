@@ -43,7 +43,9 @@ function Posts() {
 
     const [ progress, setProgress ] = useState(0);
 
-    const email = "afshal@gmail.com";
+    const email = localStorage.getItem("email");
+
+    console.log(posts);
 
     useEffect(() => {
 
@@ -102,7 +104,7 @@ function Posts() {
 
     }
 
-
+    
 
 
     const onChooseFile = (event) => {
