@@ -76,7 +76,7 @@ function Posts() {
         if(fileType ==="mp4")
         {
             const videoUrl = URL.createObjectURL(file);
-            setPosts([{ postDescription: null, video: videoUrl , createdAt: currentDate, likes: 0, hearts: 0, userEmail: email }, ...posts]); 
+            setPosts([{ postId: Math.random() , postDescription: null, video: videoUrl , createdAt: currentDate, likes: 0, hearts: 0, userEmail: email }, ...posts]); 
 
             form.append("post", `{
                 "postDescription":null,
@@ -130,8 +130,10 @@ function Posts() {
             const fileReader = new FileReader();
             fileReader.readAsDataURL(file);
             fileReader.onload = () => {
-            const blob = fileReader.result.split(",")[1];
-            setPosts([{ postDescription: null, postImage: blob, createdAt: currentDate, likes: 0, hearts: 0, userEmail: email }, ...posts]);
+            var blob = fileReader.result.split(",")[1];
+            console.log(blob);
+            console.log(Math.random())
+            setPosts([{ postId: Math.random() ,postDescription: null, postImage: blob, createdAt: currentDate, likes: 0, hearts: 0, userEmail: email }, ...posts]);
             }
 
             onChangeProgress(50);
@@ -154,7 +156,9 @@ function Posts() {
 
             onChangeProgress(100);
 
-            document.getElementById("image-upload").value = null;  
+            document.getElementById("image-upload").value = null; 
+            
+            console.log(document.getElementById("image-upload"));
 
             setTimeout(() => {
                 onChangeProgress(0);  
@@ -190,7 +194,7 @@ function Posts() {
                 progress > 0 ? 
                 (
                 <>
-                <span style={{ color:"gray" , fontSize:12.5, fontWeight:550}}>File Uploaded</span>
+                <span style={{ color:"gray" , fontSize:12.5, fontWeight:550,textAlign:"center"}}>File Uploaded</span>
                 <Progress percent={progress} size="small" className='upload-progress'/>
                 </>
                 ) 

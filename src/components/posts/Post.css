@@ -19,6 +19,11 @@
  .posts-layout{
     width: 100% !important;
  }
+ .upload-progress{
+    transition: 0.5s !important;
+    margin-bottom: 5px !important;
+    width: 80% !important;
+}
 
 }
 input[type='file'] {
@@ -27,5 +32,6 @@ input[type='file'] {
 .upload-progress{
     transition: 0.5s !important;
     margin-bottom: 9px !important;
+    width: 90% !important;
 }
 /* 25em */

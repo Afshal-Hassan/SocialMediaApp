@@ -48,7 +48,7 @@ function PeopleYouMayKnow() {
         console.log(roomId.toString());
         if (stompClient) {
             let notification = {
-                id: Math.floor(Math.random()),
+                id: Math.random(),
 
                 notificationSenderName: `${username.charAt(0).toUpperCase() + username.slice(1)}`,
 

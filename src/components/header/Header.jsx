@@ -53,7 +53,7 @@ function Header() {
         
         if(stompClient){
             let notification = {
-                id: Math.floor(Math.random()),
+                id: Math.random(),
 
                 notificationSenderName:`${username.charAt(0).toUpperCase() + username.slice(1)}`,
 

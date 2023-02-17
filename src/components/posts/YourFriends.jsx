@@ -35,7 +35,7 @@ function YourFriends() {
 
   useEffect(() => {
     fetchFriendsData();
-  }, [yourFriends])
+  }, [])
 
   const fetchFriendsData = async () => {
     const { data } = await axios.get(friendsDataApiUrl(email));
@@ -75,7 +75,7 @@ function YourFriends() {
       <div style={{ borderRadius: "9px", paddingTop: 15, paddingBottom: 15 }} className="your-friends-comp">
         {
 
-          yourFriends.map(yourFriend => (
+          yourFriends.map((yourFriend,index) => (
 
             <Card
               cover=
@@ -90,6 +90,7 @@ function YourFriends() {
                   className="your-friends-img"
                 />
               }
+              key={index}
               className="your-friends-card"
             >
               <div
