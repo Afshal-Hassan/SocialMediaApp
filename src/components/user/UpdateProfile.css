@@ -1,0 +1,51 @@
+.update-profile-layout{
+    height:100vh !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: white !important;
+}
+
+input[type='file'] {
+    display: none !important;  
+}
+
+
+
+  .ant-picker-input>input::placeholder {
+    background: white !important;
+    height: 100% !important;
+ }
+
+ .upload-progress{
+  transition: 0.5s;
+  margin-top: 15px !important;
+  margin-left: 35px !important;
+  width: 30%;
+}
+.update-profile-card{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ant-card-body{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.update-profile-background{
+  width: 650px !important;
+}
+
+@media (max-width:420px) {
+  
+  .update-profile-background{
+    width: 90% !important;
+  }
+}

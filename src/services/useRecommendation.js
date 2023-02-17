@@ -7,7 +7,7 @@ import { fetchRecommendedFriendsProfileData } from "../apis/apiUrls";
 const useRecommendation = () => {
 
     const [suggestedFriends, setSuggestedFriends] = useSuggestedFriends();
-    const user="afshal";
+    const user = localStorage.getItem("username");
 
     const email = localStorage.getItem("email");
 
@@ -16,7 +16,7 @@ const useRecommendation = () => {
     },[])
 
     const fetchRecommendedFriends = useCallback(async(user) => {
-
+        console.log(user);
         const { data } = await axios.get(fetchRecommendedFriendSuggestionUrl(user));
         axios.post( fetchRecommendedFriendsProfileData(email) , data )
         .then( res => {

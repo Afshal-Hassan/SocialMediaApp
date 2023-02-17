@@ -14,7 +14,7 @@ import SockJS from 'sockjs-client';
 import { incrementNotifications, sendNotificationMessage } from '../../redux/actions/NotificationAction';
 import axios from 'axios';
 import { privateRoomKeyApiUrl, updateNotificationsApiUrl } from '../../apis/apiUrls';
-
+import { allPrivateRoomsKeyOfUser } from '../../apis/apiUrls';
 
 var stompClient = null;
 
@@ -26,6 +26,7 @@ function Header() {
     // const receiver = 'afshal'
     const email = localStorage.getItem("email")
     const username = localStorage.getItem("username");
+    const profilePic = localStorage.getItem("profilePic");
 
     const dispatch = useDispatch();
 
@@ -58,7 +59,7 @@ function Header() {
 
                 notification:`${username.charAt(0).toUpperCase() + username.slice(1)} accepted friend request`,
 
-                notificationSenderProfilePic: "Profile Pic" ,
+                notificationSenderProfilePic: profilePic ? "http://15.206.210.206/"+profilePic : `http://localhost:3000/defaultprofile.jpeg`,
 
                 notificationStatus:"Accepted",
 
@@ -91,8 +92,12 @@ function Header() {
         console.log(err);
     }
 
-    const onAcceptedRequestConnected = () => {
-        stompClient.subscribe("/user/" + "1" + "/receive/private",onFriendRequestAcceptanceNotificationReceived);
+    const onAcceptedRequestConnected = async() => {
+        const { data } =  await axios.get(allPrivateRoomsKeyOfUser(email));
+        data.map(privateRoomKey => {
+            stompClient.subscribe("/user/" + privateRoomKey.roomID.toString() + "/receive/private",onFriendRequestAcceptanceNotificationReceived);
+
+        })
     }
 
     const onFriendRequestAcceptanceNotificationReceived = (payload) => {
@@ -124,7 +129,7 @@ function Header() {
                     marginBottom: "0.8em",
                     fontFamily: "Lato,Poppins,Muli,sans-serif",
                     color: "#008ad3",
-                    fontWeight: "bolder"
+                    fontWeight: "bolder",
                 }}
                 id="title-header"
             >facebook</Title>
@@ -237,7 +242,7 @@ function Header() {
                                             className="notification-content"
                                         >
 
-                                            <img src={ProfilePic} alt=""
+                                            <img src={notification.notificationSenderProfilePic && notification.notificationSenderProfilePic.includes('http') ? notification.notificationSenderProfilePic : notification.notificationSenderProfilePic ? `http://15.206.210.206/${notification.notificationSenderProfilePic}` : "http://localhost:3000/defaultprofile.jpeg" } alt=""
                                                 style=
                                                 {{
                                                     width: 37,

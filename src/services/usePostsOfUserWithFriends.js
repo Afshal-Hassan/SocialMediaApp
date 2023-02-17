@@ -10,10 +10,13 @@ const usePostOfUserWithFriends = () => {
   const [ posts, setPosts] = value;
   const [ loading, setLoading] = useLoader();
 
+  const email = localStorage.getItem("email");
+
     const fetchPostsOfUserWithFriends = useCallback(async (user) => {
         setLoading(true);
-        const { data } = await axios.get(postsOfUserWithFriendsApiUrl(user));
+        const { data } = await axios.get(postsOfUserWithFriendsApiUrl(email));
         setPosts(data);
+        console.log(data);
         if(data.length > 0){
 
           setLoading(false);

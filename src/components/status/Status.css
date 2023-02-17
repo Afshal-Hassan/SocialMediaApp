@@ -2,6 +2,21 @@
     width: 20%;
     
 }
+.status-comp{
+    overflow-y: scroll !important;
+}
+.status-comp::-webkit-scrollbar{
+    width:2px !important;
+}
+
+.status-comp::-webkit-scrollbar-track{
+    background-color: #FFFFFF !important;
+}
+
+.status-comp::-webkit-scrollbar-thumb{
+    background-color: #008ad3 !important;
+    border-radius: 10px !important;
+}
 
 @media (max-width:420px) {
     .status-layout{

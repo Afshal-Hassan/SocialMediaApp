@@ -7,4 +7,98 @@
 
 .login-heading{
     font-family: Poppins,sans-serif !important;
+    font-size: 23.5px;
+    margin-bottom:40px !important
+}
+
+#login-title-header{
+    margin-top: 175px !important;
+}
+
+.app-content{
+    width: 70%!important;
+}
+
+
+.login-comp{
+    width: 50% !important;
+}
+
+.login-card{
+    width: 60% !important;
+    height:300px !important;
+    justify-content: flex-start;
+}
+
+.login-button-container{
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    width: "fit-content" !important;
+}
+
+
+
+.google-login-button{
+    font-size: 16.5px !important;
+    margin-left: 40px !important;
+    margin-right: 40px  !important;
+    
+}
+
+@media (max-width:420px) {
+    .login-layout{
+        display:flex !important;
+        flex-direction: column !important;
+        height: fit-content !important;
+    }
+
+    .app-content{
+        width: 90% !important;
+    }
+
+    .login-comp{
+        width: 100% !important;
+    }
+
+    .login-card{
+        width: 90% !important;
+        height:200px!important;
+        margin-top: 30px !important;
+        display: flex !important;
+        align-items: center !important;
+        margin-top: 45px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .login-heading{
+        font-family: Poppins,sans-serif !important;
+        font-size: 21px !important;
+        margin-left: 23px !important;
+    }
+
+    .login-button-container{
+        padding-top: 7px !important;
+        padding-bottom: 7px !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+
+    
+    
+    }
+
+    .google-login-button{
+        font-size: 15.5px !important;
+    }
+
+    .button-container{
+        width: 90%;
+        margin-left: 15px !important;
+    }
+
+    #login-title-header{
+        margin-top: 60px !important;
+    }
+    
 }

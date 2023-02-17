@@ -1,12 +1,30 @@
 .post-feed-card{
-    width: 60%;
+    width: 60% !important;  
+}
+
+.ant-card-body{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: initial !important;
 }
 .video{
     object-fit: fill !important;
 }
+.post-content{
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+}
+
 @media (max-width:420px) {
 
     .post-feed-card{
-        width: 83%;
+        width: 83% !important;
+    }
+    .ant-card-body{
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: initial !important;
     }
 }

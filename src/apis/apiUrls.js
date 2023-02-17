@@ -34,6 +34,10 @@ export const privateRoomKeyApiUrl = (clickedByUser,clickedOnUser) => {
     return `http://13.112.13.61/private-room/key/${clickedByUser}/${clickedOnUser}`
 }
 
+export const updateUserDetailsApiUrl = () => {
+    return `http://localhost:5000/user/update`;
+}
+
 export const friendsDataApiUrl = (userEmail) => {
     return `http://localhost:5000/friends/list/${userEmail}`
 }
@@ -44,4 +48,21 @@ export const updateNotificationsApiUrl = (senderEmail,receiverEmail) => {
 
 export const saveNotificationsApiUrl = () => {
     return `http://localhost:5000/notifications/save`;
+}
+
+export const allPrivateRoomsKeyOfUser = (email) => {
+    return `http://localhost:5000/private-rooms/list/${email}`;
+}
+
+export const updateLikes = (postId) => {
+    return `http://localhost:5000/post/update/likes/${postId}`
+}
+
+
+export const fetchFriendsApiUrl = (userEmail) => {
+   return `http://localhost:5000/friends/list/${userEmail}`;
+}
+
+export const checkUserExistsApiUrl = (userEmail) => {
+    return `http://localhost:5000/user/check/${userEmail}`;
 }

@@ -14,7 +14,7 @@ import Stories from '../stories/Stories';
 import { useLoader } from '../../hooks/context/LoadingContext';
 import YourFriends from './YourFriends';
 import PeopleYouMayKnow from '../people-you-may-know/PeopleYouMayKnow';
-
+import { fetchUserDetailsApiUrl } from '../../apis/apiUrls';
 
 
 
@@ -36,6 +36,7 @@ function Posts() {
         console.log('Yes');
     }
 
+
     const [fetchPostsOfUserWithFriends] = usePostOfUserWithFriends();
     const { value } = usePost();
     const [posts, setPosts] = value;
@@ -45,10 +46,9 @@ function Posts() {
 
     const email = localStorage.getItem("email");
 
-    console.log(posts);
 
     useEffect(() => {
-
+    
         fetchPostsOfUserWithFriends(email);
 
     }, []);
@@ -82,8 +82,8 @@ function Posts() {
                 "postDescription":null,
                 "postImage":null,
                 "createdAt":"${currentDate}",
-                "likes":50,
-                "hearts":60,
+                "likes":0,
+                "hearts":0,
                 "userEmail":"${email}"
             }`);
             form.append("image", file);
@@ -104,7 +104,16 @@ function Posts() {
 
     }
 
-    
+
+    useEffect(() => {
+        fetchUserDetails();
+    },[])
+  
+    const fetchUserDetails = async() => {
+        const { data }  = await axios.get(fetchUserDetailsApiUrl(email,email));
+        localStorage.setItem("username", data.name);
+        localStorage.setItem("profilePic", data.profilePic);
+      }
 
 
     const onChooseFile = (event) => {
@@ -131,8 +140,8 @@ function Posts() {
                 "postDescription":null,
                 "postImage":null,
                 "createdAt":"${currentDate}",
-                "likes":50,
-                "hearts":60,
+                "likes":0,
+                "hearts":0,
                 "userEmail":"${email}"
             }`);
 
@@ -243,54 +252,56 @@ function Posts() {
             <PeopleYouMayKnow/>
             <YourFriends/>
             {posts.length > 0 ?
-                posts.map((post, index) => {
+                posts.map(post => {
                     return (
-                        <PostsFeed image={post.postImage} description={post.postDescription} creator={post.userEmail} createdDate={post.createdAt} likes={post.likes} hearts={post.hearts} video={post.video} key={index} />
+                        <PostsFeed image={post.postImage} description={post.postDescription} creator={post.userEmail} createdDate={post.createdAt} likes={post.likes} hearts={post.hearts} video={post.video} key={post.postId} post={post}/>
                     );
                 }) :
-                (
-                    <>
-                        <Card
-                            style={{
+                null
+                // ( 
+                //     <>
+                //         <Card
+                //             style={{
 
-                                border: "1px solid #ececec",
-                                boxShadow: "3px 3px 5px 1.5px lightgray",
-                                borderRadius: 8,
-                                display: "block",
-                                marginTop: 60
+                //                 border: "1px solid #ececec",
+                //                 boxShadow: "3px 3px 5px 1.5px lightgray",
+                //                 borderRadius: 8,
+                //                 display: "block",
+                //                 marginTop: 60
 
-                            }}
-                            className="post-feed-card"
-                            loading={loading}
-                        ></Card>
-                        <Card
-                            style={{
+                //             }}
+                //             className="post-feed-card"
+                //             loading={loading}
+                //         ></Card>
+                //         <Card
+                //             style={{
 
-                                border: "1px solid #ececec",
-                                boxShadow: "3px 3px 5px 1.5px lightgray",
-                                borderRadius: 8,
-                                display: "block",
-                                marginTop: 60
+                //                 border: "1px solid #ececec",
+                //                 boxShadow: "3px 3px 5px 1.5px lightgray",
+                //                 borderRadius: 8,
+                //                 display: "block",
+                //                 marginTop: 60
 
-                            }}
-                            className="post-feed-card"
-                            loading={loading}
-                        ></Card>
-                        <Card
-                            style={{
+                //             }}
+                //             className="post-feed-card"
+                //             loading={loading}
+                //         ></Card>
+                //         <Card
+                //             style={{
 
-                                border: "1px solid #ececec",
-                                boxShadow: "3px 3px 5px 1.5px lightgray",
-                                borderRadius: 8,
-                                display: "block",
-                                marginTop: 60
+                //                 border: "1px solid #ececec",
+                //                 boxShadow: "3px 3px 5px 1.5px lightgray",
+                //                 borderRadius: 8,
+                //                 display: "block",
+                //                 marginTop: 60
 
-                            }}
-                            className="post-feed-card"
-                            loading={loading}
-                        ></Card>
-                    </>
-                )
+                //             }}
+                //             className="post-feed-card"
+                //             loading={loading}
+                //         ></Card>
+                //     </>
+                // )
+                
             }
             {contextHolder}
         </Layout>

@@ -4,7 +4,7 @@ import "./Login.css"
 import { useGoogleLogin } from '@react-oauth/google';
 import GoogleIcon from "../../assets/GoogleIcon.png"
 import axios from 'axios';
-import { loginApiUrl } from '../../apis/apiUrls';
+import { checkUserExistsApiUrl, loginApiUrl } from '../../apis/apiUrls';
 import { useHistory } from 'react-router-dom';
 
 const { Title } = Typography;
@@ -16,31 +16,45 @@ function Login() {
 
   const history = useHistory();
 
-  
+  const checkUserExists = async(email) => {
+    const { data } = await axios.get(checkUserExistsApiUrl(email));
+    return data;
+  }
 
   const googleLogin = useGoogleLogin({
     onSuccess: tokenResponse => {
       console.log(tokenResponse);
 
-      axios.post(loginApiUrl(),{
+      axios.post(loginApiUrl(), {
 
-        accessToken:tokenResponse.access_token,
-        provider:"google"
+        accessToken: tokenResponse.access_token,
+        provider: "google"
 
       })
-      .then( res => {
-        localStorage.setItem("jwt",res.data.token);
-        localStorage.setItem("email",res.data.email);
-        localStorage.setItem("username",res.data.username);
-        
-        setTimeout(() => {
+        .then(res => {
+          localStorage.setItem("jwt", res.data.token);
+          localStorage.setItem("email", res.data.email);
+          const isUserExists = res.data.isUserExists
+
+          if(isUserExists){
+           setTimeout(() => {
             history.push('/');
-        },500);
+          }, 500);
+          }
+          else
+          {
+              history.push('/settings/profile/update');
+          }
 
-      })
-      .catch( err => {
-        console.log(err);
-      })
+
+          // setTimeout(() => {
+          //   history.push('/');
+          // }, 500);
+
+        })
+        .catch(err => {
+          console.log(err);
+        })
 
     }
   })
@@ -61,12 +75,14 @@ function Login() {
     <Layout className='login-layout'>
       <div style=
         {{
-          width: "50%",
+
           height: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-        }}>
+        }}
+        className="login-comp"
+      >
         <Title
           level={1}
           style=
@@ -76,39 +92,38 @@ function Login() {
             color: "#008ad3",
             fontWeight: "bolder",
             fontSize: 55,
-            marginTop: 175,
-            marginBottom:13
+            marginBottom: 13
           }}
-          id="title-header"
+          id="login-title-header"
         >facebook</Title>
-        <div style={{  width:"70%",display:"flex",alignItems:"center",flexDirection:"column",paddingLeft:75 }}>
-        <Title level={4}
-          style=
-          {{
-            color: "#65676b",
-            fontSize: 15.5,
-            marginBottom: 10
-          }}
+        <div style={{ display: "flex", alignItems: "center", flexDirection: "column", }} className="app-content">
+          <Title level={4}
+            style=
+            {{
+              color: "#65676b",
+              fontSize: 15.5,
+              marginBottom: 10
+            }}
 
-        >Facebook is an online social media and social networking service owned by American company Meta Platforms.
-        </Title>
-        <Title level={4}
-          style=
-          {{
-            color: "#65676b",
-            fontSize: 15.5,
-            marginBottom: 50
-          }}
+          >Facebook is an online social media and social networking service owned by American company Meta Platforms.
+          </Title>
+          <Title level={4}
+            style=
+            {{
+              color: "#65676b",
+              fontSize: 15.5,
+              marginBottom: 50
+            }}
 
-        >Facebook is a social utility that connects you with the people around you.
-        Welcome to my Facebook feed, where people come to enjoy me.
-        </Title>
+          >Facebook is a social utility that connects you with the people around you.
+            Welcome to my Facebook feed, where people come to enjoy me.
+          </Title>
         </div>
         <Title level={4}
           style=
           {{
             color: "#212529",
-            fontStyle:"italic",
+            fontStyle: "italic",
             fontSize: 24.5,
             fontFamily: "Poppins,sans-serif",
             fontWeight: 550
@@ -117,38 +132,36 @@ function Login() {
       </div>
       <div style=
         {{
-          width: "50%",
           height: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center"
-        }}>
+        }}
+        className="login-comp"
+      >
 
         <Card
           style=
           {{
             border: "1px solid #ececec",
             boxShadow: "3px 3px 5px 1.5px lightgray",
-            width: "60%",
-            height: 300,
-            display:"flex",
-            flexDirection:"column",
-            alignItems:"center",
-            justifyContent:"flex-start"
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-start",
           }}
+          className="login-card"
         >
           <h1
-          style=
-          {{
-            fontWeight:"bolder",
-            color:"#212529",
-            marginBottom:40,
-            fontSize:23.5,
-            fontStyle:"italic",
-            boxSizing:"border-box"
-          }}
-          className="login-heading"
+            style=
+            {{
+              fontWeight: "bolder",
+              color: "#212529",
+              fontStyle: "italic",
+              boxSizing: "border-box",
+            }}
+            className="login-heading"
           >Become a Facebook family!!</h1>
           {/* <GoogleLogin
             onSuccess={onSuccess}
@@ -160,28 +173,26 @@ function Login() {
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              border: "1px solid #4285f4",
-              width: "fit-content",
-              borderRadius:9,
-              boxSizing:"border-box"
+              border: "1px solid #008ad3",
+              borderRadius: 9,
+              boxSizing: "border-box"
             }}
+            className="button-container"
+
           >
             <div
               style=
               {{
-                width: "fit-content",
                 display: "flex",
                 alignItems: "center",
-                borderRight: "1px solid #4285f4",
-                paddingTop: 7,
-                paddingBottom: 7,
-                paddingLeft: 15,
-                paddingRight: 15,
+                borderRight: "1px solid #008ad3",
                 boxSizing: "border-box",
                 height: "100%",
               }}
+              className="login-button-container"
             >
               <img src={GoogleIcon} alt=""
+                className='google-sign-in-icon'
               />
             </div>
             <Button onClick={() => googleLogin()}
@@ -190,19 +201,35 @@ function Login() {
                 outline: "none",
                 border: "none",
                 background: "transparent",
-                color: "#4285f4",
+                color: "#008ad3",
                 fontWeight: 549,
-                fontSize: 16.5,
                 textAlign: "center",
                 fontFamily: "Poppins,sans-serif",
-                marginLeft:40,
-                marginRight:40,
-                boxSizing:"border-box"
+                boxSizing: "border-box"
 
               }}
-
+              className="google-login-button"
             >Sign in with Google</Button>
           </div>
+          <span
+            style={{
+              textAlign: "center",
+              fontFamily: "Poppins,sans-serif",
+              marginTop: 20
+            }}
+          >
+            By joining, I {" "}
+            <span style={{
+              color: "#008ad3"
+            }}>
+              agree {" "}
+            </span>
+            to {" "}
+            <span style={{
+              color: "#008ad3"
+            }}>
+              Terms & Conditions
+            </span></span>
         </Card>
 
       </div>

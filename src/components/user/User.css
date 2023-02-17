@@ -1,9 +1,26 @@
 .user-layout{
-    width: 80%;
-    background-color: #FFFFFF;
+    width: 80% !important;
+    background-color: #FFFFFF !important;
 }
 .background-image{
     width: 100% !important;
     height: 100% !important;
     object-fit:cover !important;
+}
+
+.user-info-contents{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-evenly !important;
+
+}
+@media (max-width:420px) {
+    .user-info-contents{
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: space-evenly !important;
+    
+    }
 }

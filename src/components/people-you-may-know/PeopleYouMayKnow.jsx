@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { incrementNotifications, sendNotificationMessage } from '../../redux/actions/NotificationAction';
 import axios from 'axios';
-import { privateRoomKeyApiUrl, saveNotificationsApiUrl } from '../../apis/apiUrls';
+import { allPrivateRoomsKeyOfUser, privateRoomKeyApiUrl, saveNotificationsApiUrl } from '../../apis/apiUrls';
 
 
 var stompClient = null;
@@ -21,14 +21,18 @@ function PeopleYouMayKnow() {
 
     const email = localStorage.getItem("email");
     const username = localStorage.getItem("username");
-    // const receiver = "arham"
+    const profilePic = localStorage.getItem("profilePic");
+
     const [suggestedFriends,setSuggestedFriends] = useRecommendation();
 
+    console.log(suggestedFriends);
+    const sendNotifications = async (index,suggestedFriend) => {
 
-    const sendNotifications = async (suggestedFriend) => {
+        console.log(index);
+       
         setSuggestedFriends(  suggestedFriends.map(recommendFriends => {
           return (  
-          recommendFriends && recommendFriends.map((friend,index) => friend.id == suggestedFriend.id ? 
+          recommendFriends && recommendFriends.map((friend,index) => friend.userId == suggestedFriend.userId ? 
           {...friend, friendRequestStatus:"Pending"} 
           : friend
           )
@@ -52,7 +56,7 @@ function PeopleYouMayKnow() {
 
                 notification: `${username.charAt(0).toUpperCase() + username.slice(1)} send a friend request`,
 
-                notificationSenderProfilePic: "Profile Pic",
+                notificationSenderProfilePic: `http://15.206.210.206/${profilePic ? profilePic : `http://localhost:3000/defaultprofile.jpeg`}`,
 
                 notificationStatus: "Pending",
 
@@ -71,12 +75,17 @@ function PeopleYouMayKnow() {
         }
     }
 
-
+    
 
     useEffect(() => {
+       
         friendRequestSend();
     }, [])
 
+    const fetchAllPrivateRoomKeys = async() => {
+        const { data } =  await axios.get(allPrivateRoomsKeyOfUser(email));
+        console.log(data);
+    }
 
     const friendRequestSend = () => {
         let Sock = new SockJS("http://localhost:5000/ws");
@@ -89,9 +98,17 @@ function PeopleYouMayKnow() {
         console.log(err);
     }
 
-    const onConnected = () => {
-        stompClient.subscribe("/user/" + "1" + "/send/private", onPrivateMessageReceived);
+    const onConnected = async() => {
+        const { data } =  await axios.get(allPrivateRoomsKeyOfUser(email));
+        
+        data.map(privateRoomKey => {
+
+            stompClient.subscribe("/user/" + privateRoomKey.roomID.toString() + "/send/private", onPrivateMessageReceived);
+        })
+        
     }
+
+    console.log(suggestedFriends);
 
     const onPrivateMessageReceived = (payload) => {
         let response = JSON.parse(payload.body);
@@ -158,18 +175,20 @@ function PeopleYouMayKnow() {
                                                     cover=
                                                     {
                                                         <img
-                                                            src={`http://3.109.123.148/${suggestedFriend.profilePic}`} alt=""
+                                                            src={suggestedFriend.profilePic ? `http://15.206.210.206/${suggestedFriend.profilePic}` : `http://localhost:3000/defaultprofile.jpeg`} alt=""
                                                             style={{
                                                                 borderRadius: 10,
                                                                 objectFit: "cover",
-                                                                boxSizing: "border-box"
+                                                                boxSizing: "border-box",
+                                                                
                                                             }}
+                                                         
                                                             className="your-friends-img"
-
                                                         />
                                                     }
+                                                    style={{marginRight:20}}
                                                     className="your-friends-card"
-                                                    key={index}
+                                                    key={suggestedFriend.userId}
                                                 >
                                                     <div
                                                         style={{ fontWeight: 550, fontSize: 16 }}
@@ -184,7 +203,7 @@ function PeopleYouMayKnow() {
                                                    
                                                    : (
 
-                                                    suggestedFriend.isFriend == false ? <Button type='primary' className='see-profile-button' onClick={() => sendNotifications(suggestedFriend)}>Add Friend</Button> 
+                                                    suggestedFriend.isFriend == false ? <Button type='primary' className='see-profile-button' onClick={(index) => sendNotifications(index,suggestedFriend)}>Add Friend</Button> 
                                                     :    
                                                     
                                                     <Button type='primary' className='see-profile-button' disabled>Friends Alr</Button>

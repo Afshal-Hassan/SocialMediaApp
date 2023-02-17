@@ -1,20 +1,20 @@
 .posts-layout{
-    width: 55%;
-    display: flex;
-    align-items: center;
-    padding-top: 1.25em;
+    width: 55% !important;
+    display: flex !important;
+    align-items: center !important;
+    padding-top: 1.25em !important;
 }
 .text{
     margin-bottom: 8px !important;
 }
 .what-on-mind-card{
-    width: 70%;
+    width: 70% !important;
 }
 
 @media (max-width:420px) {
 
  .what-on-mind-card{
-    width: 90%;
+    width: 90% !important;
  }
  .posts-layout{
     width: 100% !important;
@@ -22,10 +22,10 @@
 
 }
 input[type='file'] {
-    display: none;  
+    display: none !important;  
 }
 .upload-progress{
-    transition: 0.5s;
+    transition: 0.5s !important;
     margin-bottom: 9px !important;
 }
 /* 25em */

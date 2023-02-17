@@ -10,19 +10,19 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 const stories = [
     {
         id: 1,
-        url: "http://3.109.123.148/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
+        url: "http://15.206.210.206/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
     {
         id: 2,
-        url: "http://3.109.123.148/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
+        url: "http://15.206.210.206/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
     {
         id: 3,
-        url: "http://3.109.123.148/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
+        url: "http://15.206.210.206/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
     {
         id: 4,
-        url: "http://3.109.123.148/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
+        url: "http://15.206.210.206/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
 
 ]

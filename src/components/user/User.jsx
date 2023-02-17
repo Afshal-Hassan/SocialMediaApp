@@ -20,12 +20,14 @@ function User() {
     const clickOnUser = "afshalhassan7@gmail.com";
 
     
+    
     const [ fetchPostsOfUserWithFriends ] = usePostOfUserWithFriends();
     const { value } = usePost();
     const [ posts, setPosts] = value;
 
     const [ userDetails, fetchUserDetails ] = useFetchUserDetails();
 
+    console.log(userDetails)
 
     const { email } = useParams();
     console.log(email);
@@ -40,13 +42,12 @@ function User() {
     },[]);
    
 
-
+    console.log(userDetails);
     return (
         <Layout className='user-layout'>
             <div
                 style=
                 {{
-                    border: "1px solid red",
                     height: "15rem",
                     display: "flex",
                     flexDirection: "column",
@@ -55,10 +56,9 @@ function User() {
                     position: "relative", 
                 }}
                 >
-                <img src={userDetails && `http://3.109.123.148/${userDetails.backgroundImage}`} style={{ border: "1px solid black" }} alt="" className='background-image' />
-                <img src={userDetails && `http://3.109.123.148/${userDetails.profilePic}`} style=
+                <img src={userDetails && userDetails.backgroundImage != null ? `http://15.206.210.206/${userDetails.backgroundImage}` : `http://localhost:3000/defaultbackground.jpg`} style={{  }} alt="" className='background-image' />
+                <img src={userDetails && userDetails.profilePic != null ? `http://15.206.210.206/${userDetails.profilePic}` : `http://localhost:3000/defaultprofile.jpeg` } style=
                     {{
-                        border: "1px solid yellow",
                         height: 150, width: 150,
                         boxSizing: "border-box",
                         borderRadius: "100%",
@@ -88,8 +88,8 @@ function User() {
                     {userDetails && userDetails.friendsCount} Friends</Text>
                     {userDetails && (userDetails.accountOwnership == true ? <Button type='primary' disabled>Account Owner</Button> : (userDetails && userDetails.isFriend == true ? <Button type='primary' disabled>Friends</Button> : <Button type='primary' >Add Friend</Button>))}
             </div>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",marginTop:50,border:"1px solid red"}}>
-               <div style={{display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"space-evenly",width:"100%",}}>
+            <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",marginTop:50}}>
+               <div style={{width:"100%"}} className="user-info-contents">
                 <WhatsOnMind/>
                 <UserInfo email = {userDetails && userDetails.email}/>
                 </div>

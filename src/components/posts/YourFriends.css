@@ -1,13 +1,16 @@
 .your-friends-card{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
    
     width: 205px !important;
     height: 330px !important;
-    box-shadow:3px 3px 5px 1.5px lightgray;
+    box-shadow:3px 3px 5px 1.5px lightgray !important;
+    margin-right: 20px ;
     
 }
+
+
 .your-friends-img{
     width: 205px !important;
     height: 200px !important;

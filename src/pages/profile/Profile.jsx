@@ -7,7 +7,6 @@ import "./Profile.css"
 function Profile() {
   return (
    <>
-   
    <Header/>
    <Layout className='profile-pg-layout'>
    <Navbar/> 
