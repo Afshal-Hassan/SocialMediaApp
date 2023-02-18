@@ -17,9 +17,9 @@ function App() {
       <LoaderProvider>
         <PostProvider>
           <Switch>
-            <Route exact path="/" component={Home}><Home/></Route>
+            <Route exact path="/home" component={Home}><Home/></Route>
             <Route exact path="/profile/:email" component={Profile}><Profile/></Route>
-            <Route exact path="/login" component={Login}><Login/></Route>
+            <Route exact path="/" component={Login}><Login/></Route>
             <Route exact path="/settings/profile/update" component={UpdateProfile}><UpdateProfile/></Route>
             <Route exact path="/settings/profile/update/background" component={Background}><Background/></Route>
             <Route exact path="/profile/:email/interest" component={SelectCategories}><SelectCategories/></Route>

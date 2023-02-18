@@ -10,19 +10,19 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 const stories = [
     {
         id: 1,
-        url: "http://15.206.210.206/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
+        url: "http://13.234.15.230/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
     {
         id: 2,
-        url: "http://15.206.210.206/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
+        url: "http://13.234.15.230/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
     {
         id: 3,
-        url: "http://15.206.210.206/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
+        url: "http://13.234.15.230/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
     {
         id: 4,
-        url: "http://15.206.210.206/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
+        url: "http://13.234.15.230/37a36b7f-db8c-4663-a39f-d5503e2a100f.mp4"
     },
 
 ]
@@ -54,9 +54,9 @@ function Stories() {
             return (
                 <Modal open={isModalOpen} footer={null} closable={false} className="ant-modal-content">
                     <div className='modal-box' onClick={closeStoriesModal}>
-                        <Box>
-                            <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} src={props.story.url} ref={videoRef} controls />
-                        </Box>
+                       
+                            <video style={{  boxSizing: "border-box", borderRadius: 8 }} src={props.story.url} ref={videoRef} controls className='video-modal-info' />
+                       
                     </div>
                 </Modal>
             );

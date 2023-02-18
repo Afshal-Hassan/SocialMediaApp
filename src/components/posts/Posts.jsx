@@ -130,9 +130,8 @@ function Posts() {
             const fileReader = new FileReader();
             fileReader.readAsDataURL(file);
             fileReader.onload = () => {
-            var blob = fileReader.result.split(",")[1];
-            console.log(blob);
-            console.log(Math.random())
+            const blob = fileReader.result.split(",")[1];
+     
             setPosts([{ postId: Math.random() ,postDescription: null, postImage: blob, createdAt: currentDate, likes: 0, hearts: 0, userEmail: email }, ...posts]);
             }
 
@@ -150,9 +149,9 @@ function Posts() {
             onChangeProgress(70);
             form.append("image", file);
 
-            // axios.post(savePostApiUrl(), form)
-            //     .then(response => console.log(response))
-            //     .catch(error => console.log(error));
+            axios.post(savePostApiUrl(), form)
+                .then(response => console.log(response))
+                .catch(error => console.log(error));
 
             onChangeProgress(100);
 

@@ -38,7 +38,7 @@ function Header() {
     const notificationsCount = useSelector(state => state.changeTheNotification);
     const notifications = useSelector(state => state.changeTheNotificationMessage);
 
-    console.log(notifications);
+    
 
 
     const [handleNotifications] = useNotifications();
@@ -66,7 +66,7 @@ function Header() {
 
                 notification: `${username.charAt(0).toUpperCase() + username.slice(1)} accepted friend request`,
 
-                notificationSenderProfilePic: profilePic ? "http://15.206.210.206/" + profilePic : `http://localhost:3000/defaultprofile.jpeg`,
+                notificationSenderProfilePic: profilePic ? "http://13.234.15.230/" + profilePic : `http://localhost:3000/defaultprofile.jpeg`,
 
                 notificationStatus: "Accepted",
 
@@ -88,7 +88,7 @@ function Header() {
     }
 
     const connectionWithSocket = () => {
-        let Sock = new SockJS("http://localhost:5000/ws");
+        let Sock = new SockJS("http://13.234.15.230/ws");
         stompClient = over(Sock);
         stompClient.connect({}, onAcceptedRequestConnected, onError);
 
@@ -97,7 +97,7 @@ function Header() {
     const logout = () => {
         localStorage.clear();
         setTimeout(() => {
-            history.push('/login')
+            history.push('/')
         },500)
     }
 
@@ -253,7 +253,7 @@ function Header() {
                                     marginRight: 7
                                 }}
                             />
-                            <Link
+                            <Link to={``}
 
                                 style=
                                 {{
@@ -362,7 +362,7 @@ function Header() {
                                             className="notification-content"
                                         >
 
-                                            <img src={notification.notificationSenderProfilePic && notification.notificationSenderProfilePic.includes('http') ? notification.notificationSenderProfilePic : notification.notificationSenderProfilePic ? `http://15.206.210.206/${notification.notificationSenderProfilePic}` : "http://localhost:3000/defaultprofile.jpeg"} alt=""
+                                            <img src={notification.notificationSenderProfilePic && notification.notificationSenderProfilePic.includes('http') ? notification.notificationSenderProfilePic : notification.notificationSenderProfilePic ? `http://13.234.15.230/${notification.notificationSenderProfilePic}` : "http://localhost:3000/defaultprofile.jpeg"} alt=""
                                                 style=
                                                 {{
                                                     width: 37,

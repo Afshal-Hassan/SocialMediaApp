@@ -55,8 +55,8 @@ function User() {
                     position: "relative", 
                 }}
                 >
-                <img src={userDetails && userDetails.backgroundImage != null ? `http://15.206.210.206/${userDetails.backgroundImage}` : `http://localhost:3000/defaultbackground.jpg`} style={{  }} alt="" className='background-image' />
-                <img src={userDetails && userDetails.profilePic != null ? `http://15.206.210.206/${userDetails.profilePic}` : `http://localhost:3000/defaultprofile.jpeg` } style=
+                <img src={userDetails && userDetails.backgroundImage != null ? `http://13.234.15.230/${userDetails.backgroundImage}` : `http://localhost:3000/defaultbackground.jpg`} style={{  }} alt="" className='background-image' />
+                <img src={userDetails && userDetails.profilePic != null ? `http://13.234.15.230/${userDetails.profilePic}` : `http://localhost:3000/defaultprofile.jpeg` } style=
                     {{
                         height: 150, width: 150,
                         boxSizing: "border-box",

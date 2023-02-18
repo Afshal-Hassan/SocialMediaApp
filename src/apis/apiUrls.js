@@ -3,15 +3,15 @@ export const friendListApi = (user) => {
 }
 
 export const postsOfUserWithFriendsApiUrl = (user) => {
-    return `http://localhost:5000/post/get/${user}`;
+    return `http://13.234.15.230/post/get/${user}`;
 } 
 
 export const savePostApiUrl = () => {
-    return "http://localhost:5000/post/save";
+    return "http://13.234.15.230/post/save";
 }
 
 export const fetchUserDetailsApiUrl = (clickedByUser,clickedOnUser) => {
-    return `http://localhost:5000/user/get/${clickedByUser}/${clickedOnUser}`;
+    return `http://13.234.15.230/user/get/${clickedByUser}/${clickedOnUser}`;
 }
 
 export const fetchRecommendedFriendSuggestionUrl = (user) => {
@@ -19,15 +19,15 @@ export const fetchRecommendedFriendSuggestionUrl = (user) => {
 } 
 
 export const fetchRecommendedFriendsProfileData = (userEmail) => {
-    return `http://localhost:5000/user/list/get/${userEmail}`
+    return `http://13.234.15.230/user/list/get/${userEmail}`
 }
 
 export const fetchNotificationsApiUrl = (userEmail) => {
-    return `http://localhost:5000/notifications/get/${userEmail}`;
+    return `http://13.234.15.230/notifications/get/${userEmail}`;
 }
 
 export const loginApiUrl = () => {
-    return `http://localhost:5000/auth/login`;
+    return `http://13.234.15.230/auth/login`;
 }
 
 export const privateRoomKeyApiUrl = (clickedByUser,clickedOnUser) => {
@@ -35,34 +35,34 @@ export const privateRoomKeyApiUrl = (clickedByUser,clickedOnUser) => {
 }
 
 export const updateUserDetailsApiUrl = () => {
-    return `http://localhost:5000/user/update`;
+    return `http://13.234.15.230/user/update`;
 }
 
 export const friendsDataApiUrl = (userEmail) => {
-    return `http://localhost:5000/friends/list/${userEmail}`
+    return `http://13.234.15.230/friends/list/${userEmail}`
 }
 
 export const updateNotificationsApiUrl = (senderEmail,receiverEmail) => {
-    return `http://localhost:5000/notifications/update/${senderEmail}/${receiverEmail}`;
+    return `http://13.234.15.230/notifications/update/${senderEmail}/${receiverEmail}`;
 }
 
 export const saveNotificationsApiUrl = () => {
-    return `http://localhost:5000/notifications/save`;
+    return `http://13.234.15.230/notifications/save`;
 }
 
 export const allPrivateRoomsKeyOfUser = (email) => {
-    return `http://localhost:5000/private-rooms/list/${email}`;
+    return `http://13.234.15.230/private-rooms/list/${email}`;
 }
 
 export const updateLikes = (postId) => {
-    return `http://localhost:5000/post/update/likes/${postId}`
+    return `http://13.234.15.230/post/update/likes/${postId}`
 }
 
 
 export const fetchFriendsApiUrl = (userEmail) => {
-   return `http://localhost:5000/friends/list/${userEmail}`;
+   return `http://13.234.15.230/friends/list/${userEmail}`;
 }
 
 export const checkUserExistsApiUrl = (userEmail) => {
-    return `http://localhost:5000/user/check/${userEmail}`;
+    return `http://13.234.15.230/user/check/${userEmail}`;
 }

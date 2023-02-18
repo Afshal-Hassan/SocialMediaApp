@@ -16,7 +16,6 @@ const useRecommendation = () => {
     },[user])
 
     const fetchRecommendedFriends = useCallback(async(user) => {
-        console.log(user);
         const { data } = await axios.get(fetchRecommendedFriendSuggestionUrl(user));
         axios.post( fetchRecommendedFriendsProfileData(email) , data )
         .then( res => {

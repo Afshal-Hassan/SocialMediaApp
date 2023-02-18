@@ -16,7 +16,6 @@ const usePostOfUserWithFriends = () => {
         setLoading(true);
         const { data } = await axios.get(postsOfUserWithFriendsApiUrl(email));
         setPosts(data);
-        console.log(data);
         if(data.length > 0){
 
           setLoading(false);

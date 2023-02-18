@@ -56,7 +56,7 @@ function PeopleYouMayKnow() {
 
                 notification: `${username.charAt(0).toUpperCase() + username.slice(1)} send a friend request`,
 
-                notificationSenderProfilePic: `http://15.206.210.206/${profilePic ? profilePic : `http://localhost:3000/defaultprofile.jpeg`}`,
+                notificationSenderProfilePic: `http://13.234.15.230/${profilePic ? profilePic : `http://localhost:3000/defaultprofile.jpeg`}`,
 
                 notificationStatus: "Pending",
 
@@ -88,7 +88,7 @@ function PeopleYouMayKnow() {
     }
 
     const friendRequestSend = () => {
-        let Sock = new SockJS("http://localhost:5000/ws");
+        let Sock = new SockJS("http://13.234.15.230/ws");
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
 
@@ -108,7 +108,6 @@ function PeopleYouMayKnow() {
         
     }
 
-    console.log(suggestedFriends);
 
     const onPrivateMessageReceived = (payload) => {
         let response = JSON.parse(payload.body);
@@ -176,7 +175,7 @@ function PeopleYouMayKnow() {
                                                     cover=
                                                     {
                                                         <img
-                                                            src={suggestedFriend.profilePic ? `http://15.206.210.206/${suggestedFriend.profilePic}` : `http://localhost:3000/defaultprofile.jpeg`} alt=""
+                                                            src={suggestedFriend.profilePic ? `http://13.234.15.230/${suggestedFriend.profilePic}` : `http://localhost:3000/defaultprofile.jpeg`} alt=""
                                                             style={{
                                                                 borderRadius: 10,
                                                                 objectFit: "cover",

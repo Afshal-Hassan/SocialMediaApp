@@ -40,7 +40,7 @@ function SelectCategories() {
 
       // api call
 
-      axios.post(`http://localhost:5000/ml/save/${email}`, {
+      axios.post(`http://13.234.15.230/ml/save/${email}`, {
         
       interests: selectedInterests
       })
@@ -50,7 +50,7 @@ function SelectCategories() {
           
           setTimeout(() => {
 
-            history.push('/');
+            history.push('/home');
           },800)
         }
         

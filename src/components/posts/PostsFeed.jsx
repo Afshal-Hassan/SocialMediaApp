@@ -20,7 +20,7 @@ function PostsFeed(props) {
   const [posts, setPosts] = useState(props.post);
   const isButtonTouchedState = useSelector(state => state.updateButtonTouched);
 
-
+  console.log(posts.postImage);
 
   const computeLikes = (event,post) => {
   
@@ -97,6 +97,7 @@ function PostsFeed(props) {
   
   const hour = Math.floor(getHoursDiffBetweenDates(new Date(posts.createdAt.replace("T", " ")), new Date("2023-01-27 10:25:00")));
 
+  console.log(posts);
 
   return (
     <Card
@@ -126,9 +127,9 @@ function PostsFeed(props) {
           posts.postImage != null
             ?
             (
-              !posts.postImage.includes("http") ? <img src={`data:image/png;base64,${posts.postImage}`} alt="image" style={{ width: "100%" }} />
+              !posts.postImage.includes("jpeg") && !posts.postImage.includes("png") && !posts.postImage.includes("jpg") ? <img src={`data:image/png;base64,${posts.postImage}`} alt="image" style={{ width: "100%" }} />
                 :
-                <img src={`http://localhost:5000/${posts.postImage}`} alt="image" style={{ width: "100%" }} />
+                <img src={`http://13.234.15.230/${posts.postImage}`} alt="" style={{ width: "100%" }} />
             )
             :
             (
@@ -138,7 +139,7 @@ function PostsFeed(props) {
                   posts.video.includes("3000") ?
                     <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} className="video" src={`${posts.video}`} autoPlay muted loop />
                     :
-                    <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} className="video" src={`http://localhost:5000/${posts.video}`} autoPlay muted loop />
+                    <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} className="video" src={`http://13.234.15.230/${posts.video}`} autoPlay muted loop />
                 )
                 : <h2 style={{ textAlign: "center" }}>{posts.postDescription}</h2>
             )}
@@ -147,7 +148,7 @@ function PostsFeed(props) {
       </div>
       <div style={{ marginTop: 10, marginBottom: 10, display: "flex", alignItems: "center" }}>
         {
-          posts.likes > 0 && posts.hearts > 0 ?
+          posts.likes > 0 || posts.hearts > 0 ?
             (
               <>
                 <ThumbUpIcon style={{ width: 15, height: 15, color: "#008ad3", marginRight: 2 }} />
