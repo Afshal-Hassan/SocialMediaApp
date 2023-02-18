@@ -76,16 +76,21 @@ function Background() {
       axios.put(updateUserDetailsApiUrl(),form)
       .then(res => {
         console.log(res);
+
+        openNotificationWithIcon("success","Profile is completed kindly wait for few seconds","Profile Completion")
+        setTimeout(() => {
+          history.push(`/profile/${email}/interest`)
+        },1000)
       })
       .catch(err => {
         console.log(err);
+
+        openNotificationWithIcon("error","Might be some error from server","Error")
+
       })
 
-      openNotificationWithIcon("success","Profile is completed kindly wait for few seconds","Profile Completion")
 
-      setTimeout(() => {
-        history.push('/')
-      },1000)
+    
   
   }
 

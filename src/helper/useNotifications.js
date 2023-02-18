@@ -2,9 +2,11 @@
 const useNotifications = () => {
 
 
-    const handleNotifications = (display) => {
-        display.current.style.display === "initial" ? display.current.style.display = "none"
-            : display.current.style.display = "initial";
+    const handleNotifications = (display , displaySettings) => {
+       if( display.current.style.display === "initial" ) { display.current.style.display = "none" }
+          else { display.current.style.display = "initial";
+            displaySettings.current.style.display = "none";
+        }
     }
     return [handleNotifications];
 }

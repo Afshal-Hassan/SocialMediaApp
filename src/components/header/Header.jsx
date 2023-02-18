@@ -15,6 +15,10 @@ import { incrementNotifications, sendNotificationMessage } from '../../redux/act
 import axios from 'axios';
 import { privateRoomKeyApiUrl, updateNotificationsApiUrl } from '../../apis/apiUrls';
 import { allPrivateRoomsKeyOfUser } from '../../apis/apiUrls';
+import useProfileSettings from '../../helper/useProfileSettings';
+import { Link } from 'react-router-dom';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+
 
 var stompClient = null;
 
@@ -32,12 +36,14 @@ function Header() {
 
     const notificationsCount = useSelector(state => state.changeTheNotification);
     const notifications = useSelector(state => state.changeTheNotificationMessage);
-   
+
     console.log(notifications);
-    
+
 
     const [handleNotifications] = useNotifications();
+    const [handleProfileSettings] = useProfileSettings();
     const display = useRef(null);
+    const profileSettings = useRef(null);
 
     const acceptFriendRequest = (notification) => {
         onAcceptFriendRequest(notification);
@@ -45,46 +51,46 @@ function Header() {
     }
 
 
-    const onAcceptFriendRequest = async(notificationDetails) => {
+    const onAcceptFriendRequest = async (notificationDetails) => {
 
-        const { data } = await axios.get(privateRoomKeyApiUrl(email,notificationDetails.notificationSenderEmail));
+        const { data } = await axios.get(privateRoomKeyApiUrl(email, notificationDetails.notificationSenderEmail));
 
         const roomId = data.data[0].room_id;
-        
-        if(stompClient){
+
+        if (stompClient) {
             let notification = {
                 id: Math.random(),
 
-                notificationSenderName:`${username.charAt(0).toUpperCase() + username.slice(1)}`,
+                notificationSenderName: `${username.charAt(0).toUpperCase() + username.slice(1)}`,
 
-                notification:`${username.charAt(0).toUpperCase() + username.slice(1)} accepted friend request`,
+                notification: `${username.charAt(0).toUpperCase() + username.slice(1)} accepted friend request`,
 
-                notificationSenderProfilePic: profilePic ? "http://15.206.210.206/"+profilePic : `http://localhost:3000/defaultprofile.jpeg`,
+                notificationSenderProfilePic: profilePic ? "http://15.206.210.206/" + profilePic : `http://localhost:3000/defaultprofile.jpeg`,
 
-                notificationStatus:"Accepted",
+                notificationStatus: "Accepted",
 
-                friendRequestReceiver:notificationDetails.notificationSenderEmail,
-                
+                friendRequestReceiver: notificationDetails.notificationSenderEmail,
+
                 roomId: roomId.toString()
-            } 
+            }
 
-            axios.put(updateNotificationsApiUrl(notificationDetails.notificationSenderEmail,email),notification)
-            .then(res => {
-                console.log(res);
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            axios.put(updateNotificationsApiUrl(notificationDetails.notificationSenderEmail, email), notification)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err)
+                })
 
-            stompClient.send('/app/receive-notification',{},JSON.stringify(notification));
+            stompClient.send('/app/receive-notification', {}, JSON.stringify(notification));
         }
     }
 
     const connectionWithSocket = () => {
         let Sock = new SockJS("http://localhost:5000/ws");
         stompClient = over(Sock);
-        stompClient.connect({},onAcceptedRequestConnected,onError);
-    
+        stompClient.connect({}, onAcceptedRequestConnected, onError);
+
     }
 
 
@@ -92,22 +98,22 @@ function Header() {
         console.log(err);
     }
 
-    const onAcceptedRequestConnected = async() => {
-        const { data } =  await axios.get(allPrivateRoomsKeyOfUser(email));
+    const onAcceptedRequestConnected = async () => {
+        const { data } = await axios.get(allPrivateRoomsKeyOfUser(email));
         data.map(privateRoomKey => {
-            stompClient.subscribe("/user/" + privateRoomKey.roomID.toString() + "/receive/private",onFriendRequestAcceptanceNotificationReceived);
+            stompClient.subscribe("/user/" + privateRoomKey.roomID.toString() + "/receive/private", onFriendRequestAcceptanceNotificationReceived);
 
         })
     }
 
     const onFriendRequestAcceptanceNotificationReceived = (payload) => {
-        
+
         let response = JSON.parse(payload.body);
-        if(email == response.friendRequestReceiver){
+        if (email == response.friendRequestReceiver) {
             dispatch(incrementNotifications());
             dispatch(sendNotificationMessage(response));
         }
-        
+
     }
 
 
@@ -116,7 +122,8 @@ function Header() {
     useEffect(() => {
         connectionWithSocket();
         display.current.style.display = "none";
-       
+        profileSettings.current.style.display = "none";
+
     }, []);
 
 
@@ -150,7 +157,112 @@ function Header() {
                         width: 31,
                         height: 31,
                         cursor: "pointer"
-                    }} />
+
+                    }}
+                    className="person-icon"
+                    onClick={() => handleProfileSettings(profileSettings, display)}
+                />
+
+                <div
+                    ref={profileSettings}
+                    style={{
+                        width: 200,
+                        height: 150,
+                        position: "absolute",
+                        border: "0.5px solid #ececec",
+                        boxShadow: "3px 3px 5px 1.5px lightgray",
+                        zIndex: 5,
+                        marginTop: 40,
+                        marginRight: 100,
+                        background: "white",
+                        borderRadius: 8,
+                        display: "flex",
+                        flexDirection: "column"
+                    }}
+                    id="settings"
+                >
+                    <h2
+                        style=
+                        {{
+                            fontSize: 22,
+                            marginLeft: 20,
+                            marginBottom: 15,
+                            fontWeight: 709,
+                            fontFamily: "Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif",
+                            color: "#212529",
+                        }}
+                        className="notifications-title"
+                    >
+                        Settings
+                    </h2>
+
+                    <div style=
+                        {{
+                            height: 'fit-content',
+                            width: "100%",
+                            paddingTop:5,
+                            paddingBottom:5,
+                         
+
+                        }}
+
+                    >
+                        <div className='settings-content-container'>
+                            <PersonIcon
+                                style={{
+                                    width: 15,
+                                    height: 15,
+                                    cursor: "pointer",
+                                    color: "black",
+                                    marginRight: 4,
+                                    
+                                }}
+                            />
+                            <Link to={`/profile/${email}`}
+
+                                style=
+                                {{
+                                    textDecoration: "none",
+                                    color: "black",
+                                    fontWeight: 600,
+                                    fontSize: 14,
+                                    fontFamily: "Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif",
+
+                                }}
+                            >
+                                Your Profile
+                            </Link>
+                        </div>
+
+
+                        <div className='settings-content-container'>
+                            <ExitToAppIcon
+                                style={{
+                                    width: 15,
+                                    height: 15,
+                                    cursor: "pointer",
+                                    color: "black",
+                                    marginRight: 7
+                                }}
+                            />
+                            <Link to={`/profile/${email}`}
+
+                                style=
+                                {{
+                                    textDecoration: "none",
+                                    color: "black",
+                                    fontWeight: 600,
+                                    fontSize: 14,
+                                    fontFamily: "Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif",
+
+                                }}
+                            >
+                                Log out
+                            </Link>
+                        </div>
+                    </div>
+
+                </div>
                 <div
                     style=
                     {{
@@ -188,7 +300,7 @@ function Header() {
                             cursor: "pointer"
                         }}
                         id="notification-icon"
-                        onClick={() => handleNotifications(display)}
+                        onClick={() => handleNotifications(display, profileSettings)}
                     />
 
                     <div
@@ -214,7 +326,7 @@ function Header() {
                             {{
                                 fontSize: 29,
                                 marginLeft: 20,
-                                marginBottom:26,
+                                marginBottom: 26,
                                 fontWeight: "bolder"
                             }}
                             className="notifications-title"
@@ -222,7 +334,7 @@ function Header() {
 
                         {
                             notifications != 0 ?
-                                notifications.map((notification,index) => {
+                                notifications.map((notification, index) => {
 
                                     return (
 
@@ -242,7 +354,7 @@ function Header() {
                                             className="notification-content"
                                         >
 
-                                            <img src={notification.notificationSenderProfilePic && notification.notificationSenderProfilePic.includes('http') ? notification.notificationSenderProfilePic : notification.notificationSenderProfilePic ? `http://15.206.210.206/${notification.notificationSenderProfilePic}` : "http://localhost:3000/defaultprofile.jpeg" } alt=""
+                                            <img src={notification.notificationSenderProfilePic && notification.notificationSenderProfilePic.includes('http') ? notification.notificationSenderProfilePic : notification.notificationSenderProfilePic ? `http://15.206.210.206/${notification.notificationSenderProfilePic}` : "http://localhost:3000/defaultprofile.jpeg"} alt=""
                                                 style=
                                                 {{
                                                     width: 37,
@@ -273,19 +385,19 @@ function Header() {
                                                             }}
                                                             onClick={() => acceptFriendRequest(notification)}
                                                         >Accept</Button>
-                                                        <Button color='white' 
-                                                        style=
-                                                        {{
-                                                            marginRight:3.25
-                                                        }}
+                                                        <Button color='white'
+                                                            style=
+                                                            {{
+                                                                marginRight: 3.25
+                                                            }}
                                                         >Decline</Button>
                                                     </>
                                                     :
                                                     <Button type='primary' disabled
-                                                    style=
-                                                    {{
-                                                        marginLeft:25
-                                                    }}
+                                                        style=
+                                                        {{
+                                                            marginLeft: 25
+                                                        }}
                                                     >
                                                         {notification.notificationStatus}
                                                     </Button>

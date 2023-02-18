@@ -10,11 +10,51 @@
     
 }
 
-.notifications-title{
-    font-family: inherit !important;
+
+#settings {
+    overflow-y: scroll !important;
 }
 
 
+#settings::-webkit-scrollbar{
+
+    width:2px !important;
+
+}
+
+.settings-content-container{
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    padding-left: 22px !important;
+    padding-top: 5px !important ;
+    padding-bottom: 5px !important;
+    cursor: pointer;
+    margin-bottom: 13px !important;
+}
+
+.settings-content-container:hover{
+
+    background-color: whitesmoke !important;
+
+
+}
+
+#settings::-webkit-scrollbar-thumb{
+    background-color: #FFFFFF !important;
+    border-radius: 10px !important;
+}
+
+
+#settings::-webkit-scrollbar-track{
+    background-color: #FFFFFF !important;
+}
+
+
+
+.person-icon:hover{
+    color: #008ad3 !important;
+}
 
 #notifications{
     font-family: Segoe UI Historic, Segoe UI, Helvetica, Arial, sans-serif !important;

@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Login from './components/login/Login';
+import SelectCategories from './components/select/SelectCategories';
 import Background from './components/user/Background';
 import UpdateProfile from './components/user/UpdateProfile';
 import { FriendsSuggestionProvider } from './hooks/context/FriendsSuggestionContext';
@@ -21,6 +22,7 @@ function App() {
             <Route exact path="/login" component={Login}><Login/></Route>
             <Route exact path="/settings/profile/update" component={UpdateProfile}><UpdateProfile/></Route>
             <Route exact path="/settings/profile/update/background" component={Background}><Background/></Route>
+            <Route exact path="/profile/:email/interest" component={SelectCategories}><SelectCategories/></Route>
           </Switch>
         </PostProvider>
       </LoaderProvider>

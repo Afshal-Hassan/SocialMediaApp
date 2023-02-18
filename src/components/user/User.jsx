@@ -30,7 +30,6 @@ function User() {
     console.log(userDetails)
 
     const { email } = useParams();
-    console.log(email);
 
     useScrollToTop();
   

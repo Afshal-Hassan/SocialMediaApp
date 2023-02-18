@@ -6,6 +6,10 @@ body::-webkit-scrollbar{
 width: 2px !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body::-webkit-scrollbar-track{
   background-color: #FFFFFF !important;
 }
