@@ -13,7 +13,7 @@ const useRecommendation = () => {
 
     useEffect(() => {
         fetchRecommendedFriends(user);
-    },[])
+    },[user])
 
     const fetchRecommendedFriends = useCallback(async(user) => {
         console.log(user);

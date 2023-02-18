@@ -16,7 +16,7 @@ import axios from 'axios';
 import { privateRoomKeyApiUrl, updateNotificationsApiUrl } from '../../apis/apiUrls';
 import { allPrivateRoomsKeyOfUser } from '../../apis/apiUrls';
 import useProfileSettings from '../../helper/useProfileSettings';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 
@@ -27,6 +27,7 @@ const { Text } = Typography;
 const { Search } = Input;
 function Header() {
 
+    const history = useHistory();
     // const receiver = 'afshal'
     const email = localStorage.getItem("email")
     const username = localStorage.getItem("username");
@@ -93,6 +94,12 @@ function Header() {
 
     }
 
+    const logout = () => {
+        localStorage.clear();
+        setTimeout(() => {
+            history.push('/login')
+        },500)
+    }
 
     const onError = (err) => {
         console.log(err);
@@ -123,6 +130,7 @@ function Header() {
         connectionWithSocket();
         display.current.style.display = "none";
         profileSettings.current.style.display = "none";
+
 
     }, []);
 
@@ -235,7 +243,7 @@ function Header() {
                         </div>
 
 
-                        <div className='settings-content-container'>
+                        <div className='settings-content-container' onClick={logout}>
                             <ExitToAppIcon
                                 style={{
                                     width: 15,
@@ -245,7 +253,7 @@ function Header() {
                                     marginRight: 7
                                 }}
                             />
-                            <Link to={`/profile/${email}`}
+                            <Link
 
                                 style=
                                 {{

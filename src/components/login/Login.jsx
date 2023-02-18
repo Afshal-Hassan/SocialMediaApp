@@ -215,7 +215,7 @@ function Login() {
             style={{
               textAlign: "center",
               fontFamily: "Poppins,sans-serif",
-              marginTop: 20
+              marginTop: 20,
             }}
           >
             By joining, I {" "}
