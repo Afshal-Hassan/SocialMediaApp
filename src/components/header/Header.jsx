@@ -38,7 +38,7 @@ function Header() {
     const notificationsCount = useSelector(state => state.changeTheNotification);
     const notifications = useSelector(state => state.changeTheNotificationMessage);
 
-    
+    console.log(notifications);
 
 
     const [handleNotifications] = useNotifications();

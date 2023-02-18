@@ -20,7 +20,7 @@ function PostsFeed(props) {
   const [posts, setPosts] = useState(props.post);
   const isButtonTouchedState = useSelector(state => state.updateButtonTouched);
 
-  console.log(posts.postImage);
+
 
   const computeLikes = (event,post) => {
   
@@ -97,7 +97,6 @@ function PostsFeed(props) {
   
   const hour = Math.floor(getHoursDiffBetweenDates(new Date(posts.createdAt.replace("T", " ")), new Date("2023-01-27 10:25:00")));
 
-  console.log(posts);
 
   return (
     <Card

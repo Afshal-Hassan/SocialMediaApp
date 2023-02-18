@@ -4,6 +4,7 @@ const changeTheNotification = (state = initialState , action) => {
 
     switch( action.type ) {
         case "INCREMENT_NOTIFICATIONS" : return state + 1;
+        case "SET_NOTIFICATION_COUNT_TO_ZERO" : return state=0;
         default : return state;
     }
 

@@ -175,7 +175,7 @@ function PeopleYouMayKnow() {
                                                     cover=
                                                     {
                                                         <img
-                                                            src={suggestedFriend.profilePic ? `http://13.234.15.230/${suggestedFriend.profilePic}` : `http://localhost:3000/defaultprofile.jpeg`} alt=""
+                                                            src={suggestedFriend.profilePic ? `http://13.234.15.230/${suggestedFriend.profilePic}` : `http://13.127.236.214/defaultprofile.jpeg`} alt=""
                                                             style={{
                                                                 borderRadius: 10,
                                                                 objectFit: "cover",

@@ -4,6 +4,14 @@ export const incrementNotifications = () => {
     }
 }
 
+export const setNotificationCountToZero = () => {
+
+    return {
+        type: "SET_NOTIFICATION_COUNT_TO_ZERO"
+    }
+
+}
+
 export const sendNotificationMessage = (data) => {
 
     return {
