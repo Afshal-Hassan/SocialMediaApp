@@ -11,7 +11,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter basename="http://ec2-13-127-236-214.ap-south-1.compute.amazonaws.com">
+  <BrowserRouter>
   <Provider store={store}>
     {/* <PersistGate persistor={persistedStore}> */}
     <GoogleOAuthProvider clientId='1092107067426-ru4r1hr167uib2tdd10g2v62j4cpu5fh.apps.googleusercontent.com'>

@@ -38,7 +38,7 @@ function Login() {
 
           if(isUserExists){
            setTimeout(() => {
-            history.push('/');
+            history.push('/home');
           }, 500);
           }
           else
