@@ -81,7 +81,7 @@ function YourFriends() {
               cover=
               {
                 <img
-                  src={yourFriend.profilePic ? `http://13.234.15.230/${yourFriend.profilePic}` : `http://localhost:3000/defaultprofile.jpeg`} alt=""
+                  src={yourFriend.profilePic ? `http://13.234.15.230/${yourFriend.profilePic}` : `http://13.127.236.214/defaultprofile.jpeg`} alt=""
                   style={{
                     borderRadius: 10,
                     objectFit: "cover",

@@ -39,7 +39,7 @@ function Status() {
                             }}
                             key={friend.friendId}
                             >
-                                <img src={friend.profilePic ? `http://13.234.15.230/${friend.profilePic}` : "http://localhost:3000/defaultprofile.jpeg"} style={{width:37,height:37,borderRadius:"100%",}} alt=""/>
+                                <img src={friend.profilePic ? `http://13.234.15.230/${friend.profilePic}` : "http://13.127.236.214/defaultprofile.jpeg"} style={{width:37,height:37,borderRadius:"100%",}} alt=""/>
                             <Title level={5} style={{marginBottom: "1.7em",marginLeft:10}}>{ friend.name.charAt(0).toUpperCase() + friend.name.slice(1) }</Title>
                         </div>
                     );
