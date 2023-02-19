@@ -80,7 +80,7 @@ function Stories() {
                 onClick={() => openStoriesModal(story)}
                 key={story.id}
             >
-                <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} className="video" src={story.url} autoPlay muted loop />
+                <video style={{ width: "100%", height: "100%", boxSizing: "border-box", borderRadius: 8 }} className="video" src={story.url} autoPlay muted loop  />
                 <span style={{
                     position: "absolute",
                     left: "37%",

@@ -25,6 +25,20 @@
     flex-direction: row !important;
     align-items: center !important;
     justify-content: flex-start !important;
+    overflow-x: auto !important;
+}
+
+.your-friends-comp::-webkit-scrollbar{
+    height: 2.5px !important;
+}
+
+.your-friends-comp::-webkit-scrollbar-track{
+    background-color: whitesmoke !important;
+
+}
+
+.your-friends-comp::-webkit-scrollbar-thumb{
+    background-color: #008ad3 !important;
 }
 
 @media (max-width:420px) {
