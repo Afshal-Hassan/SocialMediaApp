@@ -12,6 +12,13 @@ export const setNotificationCountToZero = () => {
 
 }
 
+export const resetNotificationsMessage = () => {
+    return {
+        type: "RESET_NOTIFICATIONS_MESSAGE"
+
+    }
+}
+
 export const sendNotificationMessage = (data) => {
 
     return {

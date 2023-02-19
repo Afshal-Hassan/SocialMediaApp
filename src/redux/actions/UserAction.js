@@ -4,3 +4,9 @@ export const updateUserDetailsAction = (data) => {
         data: data
     }
 }
+
+export const resetUserDetailsAction = () => {
+    return {
+        type: "RESET_USER_DETAILS"
+    }
+}

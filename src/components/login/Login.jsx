@@ -39,7 +39,7 @@ function Login() {
           if(isUserExists){
            setTimeout(() => {
             history.push('/home');
-          }, 500);
+          }, 800);
           }
           else
           {

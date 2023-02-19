@@ -8,7 +8,7 @@ import "./Header.css";
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useFetchNotification from '../../services/useFetchNotification';
-import { updateNotificationMessage } from '../../redux/actions/NotificationAction';
+import { resetNotificationsMessage, setNotificationCountToZero, updateNotificationMessage } from '../../redux/actions/NotificationAction';
 import { over } from "stompjs";
 import SockJS from 'sockjs-client';
 import { incrementNotifications, sendNotificationMessage } from '../../redux/actions/NotificationAction';
@@ -18,6 +18,8 @@ import { allPrivateRoomsKeyOfUser } from '../../apis/apiUrls';
 import useProfileSettings from '../../helper/useProfileSettings';
 import { Link, useHistory } from 'react-router-dom';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { resetButtonTouched } from '../../redux/actions/ButtonTouched';
+import { resetUserDetailsAction } from '../../redux/actions/UserAction';
 
 
 var stompClient = null;
@@ -39,7 +41,7 @@ function Header() {
     const notifications = useSelector(state => state.changeTheNotificationMessage);
 
     console.log(notifications);
-
+    
 
     const [handleNotifications] = useNotifications();
     const [handleProfileSettings] = useProfileSettings();
@@ -96,6 +98,12 @@ function Header() {
 
     const logout = () => {
         localStorage.clear();
+        
+        dispatch(resetNotificationsMessage());
+        dispatch(resetButtonTouched());
+        dispatch(setNotificationCountToZero());
+        dispatch(resetUserDetailsAction());
+
         setTimeout(() => {
             history.push('/')
         },500)
@@ -124,7 +132,7 @@ function Header() {
     }
 
 
-    useFetchNotification();
+   useFetchNotification()
 
     useEffect(() => {
         connectionWithSocket();

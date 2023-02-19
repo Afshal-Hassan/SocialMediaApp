@@ -11,3 +11,9 @@ export const updateLikeButtonTouched = (data) => {
         data: data
     }
 }
+
+export const resetButtonTouched = () => {
+    return {
+        type: "RESET_BUTTON_TOUCHED",
+    }
+}
