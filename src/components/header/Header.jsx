@@ -69,7 +69,7 @@ function Header() {
 
                 notification: `${username.charAt(0).toUpperCase() + username.slice(1)} accepted friend request`,
 
-                notificationSenderProfilePic: profilePic ? "http://13.234.15.230/" + profilePic : `http://13.127.236.214/defaultprofile.jpeg`,
+                notificationSenderProfilePic: profilePic ? "http://13.234.15.230/" + profilePic : `http://3.108.174.134/defaultprofile.jpeg`,
 
                 notificationStatus: "Accepted",
 
@@ -369,7 +369,7 @@ function Header() {
                                             className="notification-content"
                                         >
 
-                                            <img src={notification.notificationSenderProfilePic && notification.notificationSenderProfilePic.includes('http') ? notification.notificationSenderProfilePic : notification.notificationSenderProfilePic ? `http://13.234.15.230/${notification.notificationSenderProfilePic}` : "http://13.127.236.214/defaultprofile.jpeg"} alt=""
+                                            <img src={notification.notificationSenderProfilePic && notification.notificationSenderProfilePic.includes('http') ? notification.notificationSenderProfilePic : notification.notificationSenderProfilePic ? `http://13.234.15.230/${notification.notificationSenderProfilePic}` : "http://3.108.174.134/defaultprofile.jpeg"} alt=""
                                                 style=
                                                 {{
                                                     width: 37,

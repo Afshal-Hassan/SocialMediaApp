@@ -56,7 +56,7 @@ function PeopleYouMayKnow() {
 
                 notification: `${username.charAt(0).toUpperCase() + username.slice(1)} send a friend request`,
 
-                notificationSenderProfilePic: `http://13.234.15.230/${profilePic ? profilePic : `http://13.127.236.214/defaultprofile.jpeg`}`,
+                notificationSenderProfilePic: `http://13.234.15.230/${profilePic ? profilePic : `http://3.108.174.134/defaultprofile.jpeg`}`,
 
                 notificationStatus: "Pending",
 
@@ -175,7 +175,7 @@ function PeopleYouMayKnow() {
                                                     cover=
                                                     {
                                                         <img
-                                                            src={suggestedFriend.profilePic ? `http://13.234.15.230/${suggestedFriend.profilePic}` : `http://13.127.236.214/defaultprofile.jpeg`} alt=""
+                                                            src={suggestedFriend.profilePic ? `http://13.234.15.230/${suggestedFriend.profilePic}` : `http://3.108.174.134/defaultprofile.jpeg`} alt=""
                                                             style={{
                                                                 borderRadius: 10,
                                                                 objectFit: "cover",
