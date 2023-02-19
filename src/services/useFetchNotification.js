@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { memo, useCallback, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { fetchNotificationsApiUrl } from "../apis/apiUrls";
 import { sendNotificationMessage } from "../redux/actions/NotificationAction";
@@ -15,21 +15,21 @@ const useFetchNotification = () => {
     //
     const email = localStorage.getItem("email")
 
-    useEffect(() => {
-
-        // persistedStore.purge()
-        // if(notifications.length == 0){
-            fetchNotificationsOfUser(email);
-        // }
-        
-
-    },[]);
-
-
-    const fetchNotificationsOfUser = async(userEmail) => {
+    const fetchNotificationsOfUser = useCallback(async(userEmail) => {
         const { data } = await axios.get(fetchNotificationsApiUrl(userEmail));
         data.map(notification => dispatch(sendNotificationMessage(notification)));
-    }
+    },[])
+
+    useEffect(() => {
+        if (!notifications.length) {
+            fetchNotificationsOfUser(email);
+        }
+    }, [fetchNotificationsOfUser, email, notifications.length]);
+
+
+    
+    
+   
 };
 
 

@@ -15,6 +15,7 @@ import { useLoader } from '../../hooks/context/LoadingContext';
 import YourFriends from './YourFriends';
 import PeopleYouMayKnow from '../people-you-may-know/PeopleYouMayKnow';
 import { fetchUserDetailsApiUrl } from '../../apis/apiUrls';
+import { memo } from 'react';
 
 
 

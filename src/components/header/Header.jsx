@@ -20,6 +20,7 @@ import { Link, useHistory } from 'react-router-dom';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { resetButtonTouched } from '../../redux/actions/ButtonTouched';
 import { resetUserDetailsAction } from '../../redux/actions/UserAction';
+import { memo } from 'react';
 
 
 var stompClient = null;
@@ -35,12 +36,12 @@ function Header() {
     const username = localStorage.getItem("username");
     const profilePic = localStorage.getItem("profilePic");
 
+
     const dispatch = useDispatch();
 
     const notificationsCount = useSelector(state => state.changeTheNotification);
     const notifications = useSelector(state => state.changeTheNotificationMessage);
 
-    console.log(notifications);
     
 
     const [handleNotifications] = useNotifications();
@@ -132,14 +133,12 @@ function Header() {
     }
 
 
-   useFetchNotification()
+    useFetchNotification()
 
     useEffect(() => {
         connectionWithSocket();
         display.current.style.display = "none";
         profileSettings.current.style.display = "none";
-
-
     }, []);
 
 
@@ -433,4 +432,4 @@ function Header() {
     )
 }
 
-export default Header
+export default memo(Header);
