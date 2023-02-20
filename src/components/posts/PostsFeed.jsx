@@ -120,7 +120,7 @@ function PostsFeed(props) {
       </div>
 
       <div
-        style={{ height: "fit-content", border: "1px solid white", justifySelf:"center",width:"100%", marginTop: "1em", maxHeight: "410px" }}>
+        style={{ height:"fit-content",border: "1px solid white",display:"flex",justifyContent:"center", justifySelf:"center",width:"100%", marginTop: "1em", maxHeight: "410px",boxSizing:"border-box" }} >
         {
 
           posts.postImage != null

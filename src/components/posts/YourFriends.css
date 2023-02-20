@@ -19,6 +19,7 @@
     padding: 4px 45.25px !important;
     margin-top: 10px !important;
 }
+
 .your-friends-comp{
     width: 95% !important;
     display: flex !important;
@@ -26,6 +27,7 @@
     align-items: center !important;
     justify-content: flex-start !important;
     overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
 }
 
 .your-friends-comp::-webkit-scrollbar{
