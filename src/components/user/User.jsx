@@ -38,7 +38,7 @@ function User() {
       fetchPostsOfUserWithFriends(email);
       fetchUserDetails(clickedByUser, email);
 
-    },[]);
+    },[email]);
    
 
     console.log(userDetails);

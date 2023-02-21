@@ -10,6 +10,8 @@ import axios from 'axios';
 import { updateLikes } from '../../apis/apiUrls';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateHeartButtonTouched, updateLikeButtonTouched } from '../../redux/actions/ButtonTouched';
+import Comments from '../comments/Comments';
+import { memo } from 'react';
 
 
 
@@ -145,6 +147,10 @@ function PostsFeed(props) {
 
 
       </div>
+      <div
+      
+      style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}
+      >
       <div style={{ marginTop: 10, marginBottom: 10, display: "flex", alignItems: "center" }}>
         {
           posts.likes > 0 || posts.hearts > 0 ?
@@ -159,6 +165,8 @@ function PostsFeed(props) {
         }
 
       </div>
+      <Comments />
+      </div>
       <div style={{ display: 'flex', flexDirection: "row", justifyContent: "flex-start", width: 100, marginLeft: 10 }}>
 
         <ThumbUpIcon style={{ marginTop: 12, marginRight: 13, cursor: "pointer",  }} onClick={(event) => computeLikes(event,props.post)} />
@@ -169,4 +177,4 @@ function PostsFeed(props) {
   )
 }
 
-export default PostsFeed
+export default memo(PostsFeed);

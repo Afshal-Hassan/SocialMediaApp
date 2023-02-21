@@ -15,8 +15,8 @@ import { useLoader } from '../../hooks/context/LoadingContext';
 import YourFriends from './YourFriends';
 import PeopleYouMayKnow from '../people-you-may-know/PeopleYouMayKnow';
 import { fetchUserDetailsApiUrl } from '../../apis/apiUrls';
-import { memo } from 'react';
-
+import { useCommentsModal } from '../../hooks/context/CommentsModal';
+import CommentsModal from '../comments/CommentsModal';
 
 
 const { Text } = Typography;
@@ -24,6 +24,8 @@ const { Text } = Typography;
 function Posts() {
 
     const [ api, contextHolder] = notification.useNotification();
+    const[openCommentsModal, setOpenCommentsModal] = useCommentsModal();
+
 
     const openNotificationWithIcon = (type,description) => {
         api[type] ({
@@ -58,7 +60,6 @@ function Posts() {
 
     },[progress]);
 
-    console.log(posts);
 
     const onChangeProgress = (value) => {
         setProgress(value);
@@ -307,6 +308,7 @@ function Posts() {
                 // )
                 
             }
+            {openCommentsModal && <CommentsModal/>}
             {contextHolder}
         </Layout>
     )

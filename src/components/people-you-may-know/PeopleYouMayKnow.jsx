@@ -25,7 +25,7 @@ function PeopleYouMayKnow() {
 
     const [suggestedFriends,setSuggestedFriends] = useRecommendation();
 
-    console.log(suggestedFriends);
+
     const sendNotifications = async (index,suggestedFriend) => {
 
         console.log(index);

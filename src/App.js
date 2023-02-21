@@ -4,6 +4,7 @@ import Login from './components/login/Login';
 import SelectCategories from './components/select/SelectCategories';
 import Background from './components/user/Background';
 import UpdateProfile from './components/user/UpdateProfile';
+import { CommentsModalProvider } from './hooks/context/CommentsModal';
 import { FriendsSuggestionProvider } from './hooks/context/FriendsSuggestionContext';
 import { LoaderProvider } from './hooks/context/LoadingContext';
 import { PostProvider } from './hooks/context/PostContext';
@@ -13,6 +14,7 @@ import Profile from './pages/profile/Profile';
 function App() {
   return (
     <div >
+      <CommentsModalProvider>
       <FriendsSuggestionProvider>
       <LoaderProvider>
         <PostProvider>
@@ -27,6 +29,7 @@ function App() {
         </PostProvider>
       </LoaderProvider>
       </FriendsSuggestionProvider>
+      </CommentsModalProvider>
     </div>
   );
 }
